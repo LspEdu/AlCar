@@ -392,16 +392,22 @@
 </head>
 
 <body>
-    <div class="fondo w-100"></div>
-    <main class="container pt-2 gap-2">
-        <header class="row d-flex justify-center shadow bg-light w-100 m-1 rounded p-2">
-                <div class="col-12  col-md-3 m-2 fs-4 ">
-                    <a href="{{ route('login') }}" class="btn border-1 w-100 border-black btn-lg text-dark ">Iniciar Sesión</a>
-                </div>
-                <div class="col-3"></div>
-                <div class="col-12 col-md-3 m-2 text-end fs-4">
-                    ¿No tienes cuenta? &nbsp;
-                    <a href="{{ route('register') }}" class="btn btn-outline-dark w-100 btn-lg ">Registrar</a>
+    <header class="row d-flex d-md-none shadow bg-light flex text-center rounded  w-100">
+        <div class="col-12  col-md-3 m-2 fs-4 ">
+            <a href="{{ route('login') }}" class="btn border-1 w-100 border-black btn-lg text-dark ">Iniciar Sesión</a>
+            ¿No tienes cuenta? &nbsp;
+            <a href="{{ route('register') }}" class="btn btn-outline-dark w-100 btn-lg ">Registrar</a>
+
+        </div>
+    </header>
+
+    <div class="fondo"></div>
+    <main class="container pt-2 gap-2 m-0 w-100">
+        <header class="row d-none d-md-flex">
+            <div class="col-12  col-md-3 m-2 fs-4 ">
+                <a href="{{ route('login') }}" class="btn border-1 w-100 border-black btn-lg text-dark ">Iniciar Sesión</a>
+                ¿No tienes cuenta? &nbsp;
+                <a href="{{ route('register') }}" class="btn btn-outline-dark w-100 btn-lg ">Registrar</a>
 
             </div>
         </header>
@@ -426,15 +432,29 @@
                 </div>
                 <b class="card-footer fs-2">¡Aceptamos todo tipo de vehículos!</b>
             </div>
-        </div>
-        <div class="row m-2  pb-10 d-flex justify-center">
-            <div class="card col-12 col-md-8 text-center lh-lg shadow">
+
+            <div class="card col-12 col-md-6 text-center lh-lg shadow">
                 <div class="card-body">
                     <h1 class="card-title fs-1 text-decoration-underline lh-2">¿Quieres formar parte de AlCar?</h1>
                     <a href="{{ route('register') }}" class="btn btn-outline-dark unir btn-lg w-75 lh-lg">Unirse</a>
                 </div>
             </div>
+            <div class="card mb-3" style="max-width: 540px;">
+                <div class="row g-0">
+                  <div class="col-md-4">
+                    <img src="..." class="img-fluid rounded-start" alt="...">
+                  </div>
+                  <div class="col-md-8">
+                    <div class="card-body">
+                      <h5 class="card-title">Card title</h5>
+                      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
         </div>
+
 
 
     </main>

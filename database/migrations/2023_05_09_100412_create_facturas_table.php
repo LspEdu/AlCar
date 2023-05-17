@@ -14,11 +14,11 @@ return new class extends Migration
     public function up()
     {
         Schema::create('facturas', function (Blueprint $table) {
-            $table->id()
-                  ->timestamps()
-                  ->date('FechaInicio')
-                  ->date('FechaFin')
-                  ->float('importe', 10, 2);
+            $table->id();
+            $table->timestamps();
+            $table->date('FechaInicio');
+            $table->date('FechaFin');
+            $table->float('importe', 10, 2);
 
             $table->foreignId('id_user')
                   ->constrained('users')

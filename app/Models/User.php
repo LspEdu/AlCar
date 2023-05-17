@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'ape1',
         'ape2',
+        'fechNac',
         'direccion',
         'tlf',
         'email',

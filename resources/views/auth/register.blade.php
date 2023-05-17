@@ -18,10 +18,32 @@
 
         <!-- Ape2 -->
         <div class="mt-4">
-            <x-input-label for="ape1" :value="__('Segundo Apellido')" />
-            <x-text-input id="ape1" class="block mt-1 w-full" type="text" name="ape1" :value="old('ape1')" required autofocus autocomplete="ape1" />
-            <x-input-error :messages="$errors->get('ape1')" class="mt-2" />
+            <x-input-label for="ape2" :value="__('Segundo Apellido')" />
+            <x-text-input id="ape2" class="block mt-1 w-full" type="text" name="ape2" :value="old('ape2')"  autofocus autocomplete="ape2" />
+            <x-input-error :messages="$errors->get('ape2')" class="mt-2" />
         </div>
+
+        <!-- Teléfono -->
+        <div class="mt-4">
+            <x-input-label for="tlf" :value="__('Teléfono')" />
+            <x-text-input id="tlf" class="block mt-1 w-full" type="text" pattern="^\d{9}$" name="tlf" :value="old('tlf')" required autofocus autocomplete="tlf" />
+            <x-input-error :messages="$errors->get('tlf')" class="mt-2" />
+        </div>
+
+        <!-- Dirección -->
+        <div class="mt-4">
+            <x-input-label for="dir" :value="__('Dirección')" />
+            <x-text-input id="dir" class="block mt-1 w-full" type="text" name="dir" :value="old('dir')"  autofocus autocomplete="dir" />
+            <x-input-error :messages="$errors->get('dir')" class="mt-2" />
+        </div>
+
+        <!-- Año Nacimiento -->
+        <div class="mt-4">
+            <x-input-label for="fechNac" :value="__('Fecha Nacimiento')" />
+            <x-text-input id="fechNac" class="block mt-1 w-full" type="date" name="fechNac" :value="old('fechNac')" required autofocus autocomplete="fechNac" />
+            <x-input-error :messages="$errors->get('fechNac')" class="mt-2" />
+        </div>
+
 
         <!-- Email Address -->
         <div class="mt-4">

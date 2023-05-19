@@ -14,8 +14,6 @@
                 <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar"
                   class="rounded-circle img-fluid" style="width: 150px;">
                 <h5 class="my-3">{{Auth::user()->name}} <br> {{Auth::user()->ape1}} {{Auth::user()->ape2}}</h5>
-                <p class="text-muted mb-1">Full Stack Developer</p>
-                <p class="text-muted mb-4">Bay Area, San Francisco, CA</p>
               </div>
             </div>
 
@@ -28,13 +26,13 @@
                     <p class="mb-0">Email</p>
                   </div>
                   <div class="col-sm-9">
-                    <p class="text-muted mb-0">example@example.com</p>
+                    <p class="text-muted mb-0">{{Auth::user()->email}}</p>
                   </div>
                 </div>
                 <hr>
                 <div class="row">
                   <div class="col-sm-3">
-                    <p class="mb-0">Mobile</p>
+                    <p class="mb-0">Teléfono</p>
                   </div>
                   <div class="col-sm-9">
                     <p class="text-muted mb-0">{{Auth::user()->tlf}} </p>
@@ -46,7 +44,7 @@
                     <p class="mb-0">Dirección</p>
                   </div>
                   <div class="col-sm-9">
-                    <p class="text-muted mb-0">Bay Area, San Francisco, CA</p>
+                    <p class="text-muted mb-0">{{Auth::user()->direccion ?? 'Desconocida'}}</p>
                   </div>
                 </div>
               </div>

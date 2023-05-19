@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="h-screen">
 
 <head>
     <meta charset="utf-8">
@@ -12,7 +12,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
 
-    <link rel="shortcut icon" href="{{asset('build/assets/img/favicon.ico')}}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('build/assets/img/favicon.ico') }}" type="image/x-icon">
     <!-- Styles -->
     <style>
         /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
@@ -391,72 +391,63 @@
     </style>
 </head>
 
-<body>
-    <header class="row d-flex d-md-none shadow bg-light flex text-center rounded  w-100">
-        <div class="col-12  col-md-3 m-2 fs-4 ">
-            <a href="{{ route('login') }}" class="btn border-1 w-100 border-black btn-lg text-dark ">Iniciar Sesión</a>
-            ¿No tienes cuenta? &nbsp;
-            <a href="{{ route('register') }}" class="btn btn-outline-dark w-100 btn-lg ">Registrar</a>
-
-        </div>
-    </header>
+<body class="m-0">
 
     <div class="fondo"></div>
-    <main class="container pt-2 gap-2 m-0 w-100">
-        <header class="row d-none d-md-flex">
-            <div class="col-12  col-md-3 m-2 fs-4 ">
-                <a href="{{ route('login') }}" class="btn border-1 w-100 border-black btn-lg text-dark ">Iniciar Sesión</a>
-                ¿No tienes cuenta? &nbsp;
-                <a href="{{ route('register') }}" class="btn btn-outline-dark w-100 btn-lg ">Registrar</a>
+    <main class="container pt-2 gap-2 w-100 h-screen">
+        <header class="row d-md-none   flex justify-self-center text-center rounded  "> {{-- Header dispositivos móviles --}}
+            <div class="col-12 p-0 col-md-3 fs-4  justify-center d-flex">
+                <a href="{{ route('login') }}" class="btn bg-none  w-75 btn-lg text-light shadow-lg ">Iniciar Sesión</a>
+
+            </div>
+        </header>
+        <header class="row d-none d-md-flex"> {{-- Header principal --}}
+            <div class="col-12 col-md-3 m-2 fs-4 d-flex text-center justify-center w-100">
+                <a href="{{ route('login') }}" class="btn btn-light w-25  btn-lg ">Iniciar Sesión</a>
 
             </div>
         </header>
         <hr class="border-white">
-        <div class="row p-2 gap-4 d-flex justify-content-around">
-            <div class="col-12 col-md-6 col-lg-5 card border-2 shadow d-flex justify-content-center h-auto rounded">
+        <div class="row p-2 gap-2 d-flex justify-content-around">
+            <div class="col-12 col-md-4 col-lg-5 card border-2 shadow d-flex justify-content-center h-auto rounded">
                 <div class="card-header">
-                    <img class="card-img-top img-fluid " src="{{ asset('build/assets/img/logotipo.svg') }}" alt="">
+                    <img class="card-img-top img-fluid " src="{{ asset('build/assets/img/logotipo.svg') }}"
+                        alt="">
                 </div>
                 <div class="card-body fs-3 align-center lh-lg ">
                     AlCar es una empresa exclusiva donde podrás alquilar el vehículo que soñaste y decidir si cumples tu
                     sueño.
                 </div>
             </div>
-            <div class="col-12 col-md-6 col-lg-4  card border-2 rounded shadow">
-                <div class="card-header">
-                    <h1 class="card-title fs-1 m-2 fw-bolder">¿Quieres alquilar tu coche?</h1>
-                </div>
-                <div class="card-body fs-3">
-                    En esto basamos nuestra empresa, podrás alquilar coches de usuarios que quieran sacar provecho de su
-                    inversión.
-                </div>
-                <b class="card-footer fs-2">¡Aceptamos todo tipo de vehículos!</b>
-            </div>
+            <div class="row col-8 col-lg-5 d-flex flex-col gap-2">
 
-            <div class="card col-12 col-md-6 text-center lh-lg shadow">
-                <div class="card-body">
-                    <h1 class="card-title fs-1 text-decoration-underline lh-2">¿Quieres formar parte de AlCar?</h1>
-                    <a href="{{ route('register') }}" class="btn btn-outline-dark unir btn-lg w-75 lh-lg">Unirse</a>
-                </div>
-            </div>
-            <div class="card mb-3" style="max-width: 540px;">
-                <div class="row g-0">
-                  <div class="col-md-4">
-                    <img src="..." class="img-fluid rounded-start" alt="...">
-                  </div>
-                  <div class="col-md-8">
-                    <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                <div class="col-12 card border-2 rounded shadow">
+                    <div class="card-header">
+                        <h1 class="card-title fs-1 m-2 fw-bolder">¿Quieres alquilar tu coche?</h1>
                     </div>
-                  </div>
+                    <div class="card-body fs-3">
+                        En esto basamos nuestra empresa, podrás alquilar coches de usuarios que quieran sacar provecho
+                        de su inversión.
+                    </div>
+                    <b class="card-footer fs-2">¡Aceptamos todo tipo de vehículos!</b>
                 </div>
-              </div>
+                <div class="divider col-12 mt-4 mb-4"></div>
+
+                <div class="card col-12 col-md-12 text-center lh-lg shadow">
+                    <div class="card-body">
+                        <h1 class="card-title fs-1 text-decoration-underline lh-2">¿Quieres formar parte de AlCar?</h1>
+                        <a href="{{ route('register') }}" class="btn btn-outline-dark unir btn-lg w-75 lh-lg">Unirse</a>
+                    </div>
+                </div>
+            </div>
         </div>
-
-
-
+        <footer class="fixed-bottom bg-light text-center text-lg-start bg-transparent">
+            <!-- Copyright -->
+            <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+                © 2023 Copyright: AlCar S.L.
+            </div>
+            <!-- Copyright -->
+        </footer>
     </main>
 </body>
 

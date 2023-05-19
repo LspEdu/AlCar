@@ -9,33 +9,20 @@
 
         <div class="row pt-2">
           <div class="col-lg-4">
-            <div class="card mb-4">
+            <div class="card mb-4 shadow">
               <div class="card-body text-center">
                 <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar"
                   class="rounded-circle img-fluid" style="width: 150px;">
-                <h5 class="my-3">{{Auth::user()->name}}</h5>
+                <h5 class="my-3">{{Auth::user()->name}} <br> {{Auth::user()->ape1}} {{Auth::user()->ape2}}</h5>
                 <p class="text-muted mb-1">Full Stack Developer</p>
                 <p class="text-muted mb-4">Bay Area, San Francisco, CA</p>
-                <div class="d-flex justify-content-center mb-2">
-                  <button type="button" class="btn btn-primary">Follow</button>
-                  <button type="button" class="btn btn-outline-primary ms-1">Message</button>
-                </div>
               </div>
             </div>
 
           </div>
           <div class="col-lg-8">
-            <div class="card mb-4">
+            <div class="card mb-4 shadow">
               <div class="card-body">
-                <div class="row">
-                  <div class="col-sm-3">
-                    <p class="mb-0">Nombre</p>
-                  </div>
-                  <div class="col-sm-9">
-                    <p class="text-muted mb-0">Johnatan Smith</p>
-                  </div>
-                </div>
-                <hr>
                 <div class="row">
                   <div class="col-sm-3">
                     <p class="mb-0">Email</p>
@@ -47,19 +34,10 @@
                 <hr>
                 <div class="row">
                   <div class="col-sm-3">
-                    <p class="mb-0">NickName</p>
-                  </div>
-                  <div class="col-sm-9">
-                    <p class="text-muted mb-0">@DueñodeKia</p>
-                  </div>
-                </div>
-                <hr>
-                <div class="row">
-                  <div class="col-sm-3">
                     <p class="mb-0">Mobile</p>
                   </div>
                   <div class="col-sm-9">
-                    <p class="text-muted mb-0">(098) 765-4321</p>
+                    <p class="text-muted mb-0">{{Auth::user()->tlf}} </p>
                   </div>
                 </div>
                 <hr>
@@ -75,7 +53,7 @@
             </div>
             <div class="row">
               <div class="col-md-6">
-                <div class="card mb-4 mb-md-0">
+                <div class="card mb-4 shadow mb-md-0">
                   <div class="card-body">
                     <p class="mb-4"><span class="text-primary font-italic me-1">Coches</span>
                     </p>
@@ -108,7 +86,7 @@
                 </div>
               </div>
               <div class="col-md-6">
-                <div class="card mb-4 mb-md-0">
+                <div class="card mb-4 shadow mb-md-0">
                   <div class="card-body">
                     <p class="mb-4"><span class="text-primary font-italic me-1">Comentarios</span>
                     </p>

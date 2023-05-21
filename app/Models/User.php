@@ -26,7 +26,10 @@ class User extends Authenticatable
         'tlf',
         'email',
         'password',
+        'avatar',
     ];
+
+
 
     /**
      * The attributes that should be hidden for serialization.
@@ -46,4 +49,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    public function setAvatar(string $avatar)
+    {
+        $avatar = str_replace('public', 'storage', $avatar);
+        $this->avatar = $avatar;
+        $this->save();
+    }
+
+
 }

@@ -443,7 +443,7 @@
         </div>
         <footer class="fixed-bottom bg-light text-center text-lg-start bg-transparent">
             <!-- Copyright -->
-            <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+            <div class="text-center p-3 text-white" style="background-color: rgba(0, 0, 0, 0.2);">
                 © 2023 Copyright: AlCar S.L.
             </div>
             <!-- Copyright -->

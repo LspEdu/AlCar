@@ -10,10 +10,10 @@
         <div class="row pt-2">
           <div class="col-lg-4">
             <div class="card mb-4 shadow">
-              <div class="card-body text-center">
-                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar"
-                  class="rounded-circle img-fluid" style="width: 150px;">
-                <h5 class="my-3">{{Auth::user()->name}} <br> {{Auth::user()->ape1}} {{Auth::user()->ape2}}</h5>
+              <div class="card-body text-center row">
+                <img src="{{Auth::user()->avatar ?? asset('/storage/webo.jpg')}}" alt="avatar"
+                  class="rounded col-6" style="width: 150px;">
+                <h5 class="my-3 col-6">{{Auth::user()->name}} <br> {{Auth::user()->ape1}} {{Auth::user()->ape2}}</h5>
               </div>
             </div>
 

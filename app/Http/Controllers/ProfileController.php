@@ -21,6 +21,29 @@ class ProfileController extends Controller
         ]);
     }
 
+
+
+    /**
+     *  Update Users Avatar
+     *
+     *  TOIMPROVE:: Un recolector de basura recogería las imgs que no se esten usando una vez al mes
+     */
+    public function avatar(Request $request)
+    {
+
+
+        $request->validate([
+            'avatar' => 'required|image|max:2048'
+        ]);
+
+
+        $avatar = $request->file('avatar')->store('public/avatars');
+        $request->user()->setAvatar($avatar);
+        return Redirect::route('dashboard');
+    }
+
+
+
     /**
      * Update the user's profile information.
      */

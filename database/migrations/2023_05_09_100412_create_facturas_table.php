@@ -20,12 +20,12 @@ return new class extends Migration
             $table->date('FechaFin');
             $table->float('importe', 10, 2);
 
-            $table->foreignId('id_user')
+            $table->foreignId('user_id')
                   ->constrained('users')
                   ->onUpdate('cascade')
                   ->onDelete('cascade');
 
-            $table->foreignId('id_coche')
+            $table->foreignId('coche_id')
                   ->constrained('coches')
                   ->onUpdate('cascade')
                   ->onDelete('cascade');

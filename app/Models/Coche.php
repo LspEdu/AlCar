@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Facades\DB;
 
 class Coche extends Model
@@ -30,7 +31,19 @@ class Coche extends Model
         'plazas',
         'lat',
         'lng',
+        'user_id'
     ];
+
+
+    /**
+     * Get the user that owns the Coche
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 
 
     /**
@@ -40,4 +53,41 @@ class Coche extends Model
      */
     protected bool $validado;
 
+
+
+    /**
+     * Tipos de coches
+     */
+    const TIPOS = [
+        'utilitario',
+        'deportivo',
+        'superdeportivo',
+        'biplaza',
+        'offroad',
+    ];
+
+    /**
+     * Tipos de combustible
+     */
+    const COMBUSTIBLES = [
+        'diesel',
+        'gasolina',
+        'electrico',
+        'hibrido',
+    ];
+
+    /**
+     * Tipos de cambio
+     */
+    const CAMBIO = [
+        'manual',
+        'automatico',
+    ];
+
+
+    public function setValidadoFalse()
+    {
+        $this->validado = false;
+        $this->save();
+    }
 }

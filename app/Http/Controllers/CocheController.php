@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Coche;
+use Error;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Throwable;
 
 class CocheController extends Controller
 {
@@ -25,6 +28,15 @@ class CocheController extends Controller
     }
 
 
+    public function create()
+    {
+
+        return view('coches.create', [
+            'combustibles' => Coche::COMBUSTIBLES,
+            'tipos' => Coche::TIPOS,
+            'cambio' => Coche::CAMBIO,
+        ]);
+    }
 
     /**
      * Creación de los coches.
@@ -32,27 +44,28 @@ class CocheController extends Controller
      *
      * @return void
      */
-    public function create(Request $request)
+    public function store(Request $request)
     {
+        $request->validate([
+            'marca' => 'required| string | max:255',
+            'modelo' => 'required | string | max:255',
+            'tipo' => 'required | in:' . implode(',', Coche::TIPOS),
+            'precio' => 'required | integer | min:1',
+            'matricula' => 'required | string | min:7',
+            'combustible' => 'nullable | in:' . implode(',', Coche::COMBUSTIBLES),
+            'cambio' => 'required | in:' . implode(',', Coche::CAMBIO),
+            'ano' => 'nullable | date | after_or_equal:today',
+            'motor' => 'nullable | string | max:255',
+            'cilindrada' => 'nullable | string | max:255',
+            'color' => 'nullable | string | max:255',
+            'plazas' => 'nullable | integer | max:14 | min:1',
+        ]);
 
-        if ($request->getMethod === 'POST') {
-            // VALIDATE
+        $coche = $request->user()->coches()->create($request->all());
 
-            //SAVE
-
-            //RETURN SUCCESFUL
-        } else {
-
-
-            return view('coches.create', [
-                'combustibles' => [
-                    'diesel',
-                    'gasolina',
-                    'electrico',
-                    'hibrido'
-                ],
-            ]);
-        }
+        return redirect()->route('coche.show', [
+            'id' => $coche->id,
+        ]);
     }
 
 
@@ -67,7 +80,59 @@ class CocheController extends Controller
         $coche = Coche::find($id);
 
         return view('coches.index', [
-            'coche' => $coche
+            'coche' => $coche,
         ]);
+    }
+
+    /**
+     * Vista para editar el coche si eres dueño
+     *
+     * @param int $id
+     * @return void
+     */
+    public function edit(Request $request, $id)
+    {
+        $coche = Coche::find($id);
+        return view('coches.edit', [
+            'coche' => $coche,
+            'combustibles' => Coche::COMBUSTIBLES,
+            'tipos' => Coche::TIPOS,
+            'cambio' => Coche::CAMBIO,
+        ]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'marca' => 'required| string | max:255',
+            'modelo' => 'required | string | max:255',
+            'tipo' => 'required | in:' . implode(',', Coche::TIPOS),
+            'precio' => 'required | integer | min:1',
+            'matricula' => 'required | string | min:7',
+            'combustible' => 'nullable | in:' . implode(',', Coche::COMBUSTIBLES),
+            'cambio' => 'required | in:' . implode(',', Coche::CAMBIO),
+            'ano' => 'nullable | date | after_or_equal:today',
+            'motor' => 'nullable | string | max:255',
+            'cilindrada' => 'nullable | string | max:255',
+            'color' => 'nullable | string | max:255',
+            'plazas' => 'nullable | integer | max:14 | min:1',
+        ]);
+
+        $coche = Coche::find($id);
+
+        $coche->fill($request->all());
+        $coche->setAttribute('validado', false);
+        $coche->save();
+
+        return redirect()->route('coche.show', [
+            'id' => $coche->id,
+        ]);
+    }
+
+    public function destroy($id)
+    {
+        $coche = Coche::find($id);
+        $coche->delete();
+        return redirect()->route('dashboard');
     }
 }

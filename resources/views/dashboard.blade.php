@@ -6,7 +6,6 @@
         </h2>
     </x-slot>
 
-
         <div class="row pt-2">
           <div class="col-lg-4">
             <div class="card mb-4 shadow">

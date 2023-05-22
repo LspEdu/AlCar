@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CocheController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -27,6 +28,12 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::post('/profile', [ProfileController::class, 'avatar'])->name('profile.avatar');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+Route::middleware('auth')->group(function () {
+    Route::get('/coches', [CocheController::class, 'index'])->name('coche.index');
+    Route::get('/coche/create', [CocheController::class , 'create'])->name('coche.create');
+    Route::get('/coche/{id}', [CocheController::class, 'show'])->name('coche.show');
 });
 
 require __DIR__.'/auth.php';

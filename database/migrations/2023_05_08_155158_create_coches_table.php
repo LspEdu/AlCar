@@ -21,11 +21,11 @@ return new class extends Migration
             $table->enum('tipo', ['utilitario', 'deportivo', 'superdeportivo', 'biplaza', 'offroad']);
             $table->float('precio', 8, 2);
             $table->string('matricula', 15);
-            $table->enum('combustible', ['gasolina', 'diesel', 'electrico', 'hibrido'])->nullable();
             $table->enum('cambio', ['automatico', 'manual']);
+            $table->enum('combustible', ['gasolina', 'diesel', 'electrico', 'hibrido'])->nullable();
             $table->year('ano')->nullable();
             $table->string('motor')->nullable();
-            $table->string('clindrada')->nullable();
+            $table->string('cilindrada')->nullable();
             $table->string('color')->nullable();
             $table->integer('km')->nullable();
             $table->integer('plazas')->nullable();
@@ -33,7 +33,7 @@ return new class extends Migration
             $table->string('lng')->nullable();
             $table->boolean('validado')->default(false);
 
-            $table->foreignId('id_user')
+            $table->foreignId('user_id')
                   ->constrained('users')
                   ->onUpdate('cascade')
                   ->onDelete('cascade');

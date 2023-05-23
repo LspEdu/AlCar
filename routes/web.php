@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CocheController;
 use App\Http\Controllers\ProfileController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,6 +22,7 @@ Route::get('/', function () {
 })->name('index');
 
 Route::get('/dashboard', function () {
+    if(Auth::user()->rol == 'admin') return redirect()->route('admin.index');
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
@@ -38,6 +41,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/coche/edit/{id}', [CocheController::class, 'edit'])->name('coche.edit');
     Route::post('/coche/edit/{id}', [CocheController::class, 'update'])->name('coche.update');
     Route::delete('/coche/destroy/{id}', [CocheController::class, 'destroy'])->name('coche.delete');
+});
+
+Route::middleware('admin')->group(function () {
+    Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
+    Route::get('/admin/coches', [AdminController::class, 'coches'])->name('admin.coches');
+    Route::get('/admin/validar/coche/{id}', [AdminController::class, 'validar'])->name('admin.validar');
 });
 
 require __DIR__.'/auth.php';

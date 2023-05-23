@@ -129,8 +129,7 @@
             </div>
             <div class="col-12 gap-1 justify-content-center flex-row-reverse row">
                 <hr>
-                <input type="submit" value="Registrar" class=" col-12 col-md-3 m-2 mb-3 btn btn-outline-primary ">
-                <x-primary-button>
+                <x-primary-button class="col-12 col-md-3  m-2 mb-3">
                     {{ __('Registrar') }}
                 </x-primary-button>
             </div>

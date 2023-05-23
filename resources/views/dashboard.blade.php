@@ -10,10 +10,12 @@
         <div class="col-lg-5">
             <div class="card mb-4 shadow">
                 <div class="card-body text-center row">
-                    <img src="{{ Auth::user()->avatar ?? asset('/storage/webo.jpg') }}" alt="avatar"
+                    <div class="row mb-2">
+                        <img src="{{ Auth::user()->avatar ?? asset('/storage/webo.jpg') }}" alt="avatar"
                         class="rounded col-6" style="width: 150px;">
-                    <h5 class="my-3 col-6">{{ Auth::user()->name }} <br> {{ Auth::user()->ape1 }}
-                        {{ Auth::user()->ape2 }}</h5>
+                        <h5 class="my-3 col-6">{{ Auth::user()->name }} <br> {{ Auth::user()->ape1 }}
+                            {{ Auth::user()->ape2 }}</h5>
+                        </div>
                     <hr>
                     <div class="row">
                         <div class="col-sm-3">
@@ -53,11 +55,14 @@
                             <p class="mb-4"><span class="text-primary font-italic me-1">Coches</span>
                             </p>
                             <ul>
-                                @foreach (Auth::user()->coches as $coche)
+                                @forelse (Auth::user()->coches as $coche)
+
                                     <li><a class="link link-secondary"
                                             href="{{ route('coche.show', ['id' => $coche->id]) }}">{{ $coche->marca }}
                                             {{ $coche->modelo }} - {{ $coche->matricula }}</a></li>
-                                @endforeach
+                                @empty
+                                    <h4>¡No tienes ningún coche registrado!</h4>
+                                @endforelse
                             </ul>
                         </div>
                     </div>
@@ -67,7 +72,9 @@
                         <div class="card-body">
                             <p class="mb-4"><span class="text-primary font-italic me-1">Facturas</span>
                             </p>
-                            <h4>¡No tienes facturas! ¿A qué esperas para alquilar?</h4>
+                            <ul>
+                                <h4>¡No tienes facturas! ¿A qué esperas para alquilar?</h4>
+                            </ul>
                         </div>
                     </div>
                 </div>

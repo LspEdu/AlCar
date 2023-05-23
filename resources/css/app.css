@@ -8,7 +8,7 @@ body {
 
 .fondo {
     position: fixed;
-    background-image: url("../img/Visiwig-Bricks.svg");
+    background-image: url("../img/marmol.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center, center;
@@ -17,6 +17,7 @@ body {
     opacity: 0.5;
     z-index: -1;
     top: 0;
+    filter: blur(0.3);
 }
 
 .out {

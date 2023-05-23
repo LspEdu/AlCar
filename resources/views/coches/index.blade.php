@@ -6,17 +6,22 @@
 
         @if (Auth::user()->id == $coche->user_id)
             @if ($coche->validado)
-            <p class=" text-white fs-4 bg-success rounded  align-middle">
-                <span class="material-symbols-outlined">
-                    check_circle
+            <div class="bg-success rounded">
+
+                <p class=" text-white fs-4 bg-success rounded  align-middle">
+                    <span class="material-symbols-outlined">
+                        check_circle
                     </span>
                     ¡Está todo correcto! Si cambias algún dato, deberás esperar de nuevo una validación.
-            </p>
+                </p>
+            </div>
             @else
-            <p class=" text-white fs-4 bg-warning rounded  align-middle">
-            <span class="material-symbols-outlined fs-1">report</span>
+            <div class="bg-warning rounded">
+                <p class="ms-2 text-white fs-4  rounded  align-middle">
+                    <span class="material-symbols-outlined fs-1">report</span>
                     ¡Perfecto!, Ahora toca esperar a que un administrador
                     valide tu coche!</p>
+                </div>
             @endif
         @endif
 

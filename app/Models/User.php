@@ -30,6 +30,7 @@ class User extends Authenticatable
         'avatar',
     ];
 
+    protected string $rol;
 
 
     /**
@@ -68,5 +69,11 @@ class User extends Authenticatable
     public function coches(): HasMany
     {
         return $this->hasMany(Coche::class);
+    }
+
+
+    public function getRol()
+    {
+        return $this->rol;
     }
 }

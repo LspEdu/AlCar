@@ -59,9 +59,12 @@ class CocheController extends Controller
             'cilindrada' => 'nullable | string | max:255',
             'color' => 'nullable | string | max:255',
             'plazas' => 'nullable | integer | max:14 | min:1',
+            'foto' => 'required | image | max:2028',
         ]);
 
         $coche = $request->user()->coches()->create($request->all());
+        $coche->setFoto($request->file('foto')->store('public/coches/'.$coche->matricula));
+
 
         return redirect()->route('coche.show', [
             'id' => $coche->id,
@@ -116,12 +119,19 @@ class CocheController extends Controller
             'cilindrada' => 'nullable | string | max:255',
             'color' => 'nullable | string | max:255',
             'plazas' => 'nullable | integer | max:14 | min:1',
+            'foto' => 'nullable|image|max:4096',
         ]);
 
         $coche = Coche::find($id);
 
-        $coche->fill($request->all());
+        $img = $coche->foto;
+
+
+        $coche->update($request->all());
         $coche->setAttribute('validado', false);
+        $request->file('foto')
+        ? $coche->setFoto($request->file('foto')->store('public/coches/'.$coche->matricula))
+        : $coche->foto = $img;
         $coche->save();
 
         return redirect()->route('coche.show', [

@@ -25,17 +25,15 @@
                 </div>
             @endif
         @endif
-
-
     </x-slot>
     <div class="mt-4 mt-md-2 row gap-2 justify-content-around ms-1 me-1">
         <div class="col-12 col-md-6 bg-white rounded ">
             <div class="card mt-2 border-0">
                 <h2 class="card-title m-2 fw-bold ">{{ $coche->marca }} {{ $coche->modelo }} </h2>
-                <img class="card-img-top" src="{{ asset('build/assets/img/audiA7.png') }}" alt="Title">
                 <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-light">
+                    <img class="card-img-top img-fluid" src="{{ asset($coche->foto) }}" style=" height: 20em" alt="Title">
+                    <div class="table-responsive mt-2">
+                        <table class="table table-light table-hover">
                             <tbody>
                                 <tr class="">
                                     <td scope="row" class="fw-bold">Marca</td>

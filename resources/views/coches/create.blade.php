@@ -4,7 +4,7 @@
             Registrar Coche
         </h2>
     </x-slot>
-    <form method="post" action="{{ route('coche.store') }}">
+    <form method="post" action="{{ route('coche.store') }}"  enctype="multipart/form-data">
         @csrf
         <div class="row gap-1 row-cols-3 justify-content-around bg-white rounded m-4">
             <h3 class="col-12 text-center mt-3 mb-3 ">
@@ -25,7 +25,7 @@
                 <div class="mb-3">
                     <label for="marca" class="form-label">Marca<span class="text-danger">*</span></label>
                     <input type="text" class="form-control shadow-sm" name="marca" required id="marca"
-                        placeholder="">
+                        placeholder="" >
                     <x-input-error class="mt-2" :messages="$errors->get('marca')" />
                 </div>
             </div>
@@ -55,7 +55,7 @@
             <div class="col-12 col-md-3">
                 <div class="mb-3">
                     <label for="cambio" class="form-label">Cambio<span class="text-danger">*</span></label>
-                    <select class="form-control shadow-sm" name="cambio" id="cambio" placeholder="">
+                    <select class="form-control shadow-sm" required name="cambio" id="cambio" placeholder="">
                         @foreach ($cambio as $cambio)
                             <option value="{{ $cambio }}">{{ $cambio }}</option>
                         @endforeach
@@ -122,10 +122,14 @@
             <div class="col-12 col-md-3">
                 <div class="mb-3">
                     <label for="precio" class="form-label">Precio por día<span class="text-danger">*</span></label>
-                    <input type="number" min="1" class="form-control shadow-sm text-end" name="precio"
+                    <input type="number" min="1" required class="form-control shadow-sm text-end" name="precio"
                         id="precio" value="1">
                     <x-input-error class="mt-2" :messages="$errors->get('precio')" />
                 </div>
+            </div>
+            <div class="col-12 col-md-3 text-center mt-2 mb-2">
+                <label class="form-label fs-5 " for="foto">Foto del Coche<span class="text-danger">*</span></label><br>
+                <input class="text-center w-full" accept="image/*" type="file" name="foto" required id="foto">
             </div>
             <div class="col-12 gap-1 justify-content-center flex-row-reverse row">
                 <hr>

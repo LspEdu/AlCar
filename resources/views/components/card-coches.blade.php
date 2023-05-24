@@ -1,7 +1,7 @@
 @props(['coche'])
 
 <div {{ $attributes->merge(['class' => 'card']) }}>
-    <img src="https://mdbcdn.b-cdn.net/img/new/standard/nature/184.webp" class="card-img-top w-100 mt-1 rounded" alt="Fissure in Sandstone" />
+    <img src="{{asset($coche->foto)}}" class="card-img-top w-100 mt-1 rounded" alt="Fissure in Sandstone" />
     <div class="card-body">
         <h5 class="card-title">{{$coche->marca}} {{$coche->modelo}}</h5>
         <div class="card-text">

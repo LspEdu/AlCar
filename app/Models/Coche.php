@@ -31,7 +31,7 @@ class Coche extends Model
         'plazas',
         'lat',
         'lng',
-        'user_id'
+        'foto',
     ];
 
 
@@ -89,6 +89,13 @@ class Coche extends Model
     public function facturas()
     {
         return $this->hasMany(Factura::class);
+    }
+
+    public function setFoto(?string $foto)
+    {
+        $foto = str_replace('public', 'storage', $foto);
+        $this->foto = $foto;
+        $this->save();
     }
 
 

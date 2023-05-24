@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CocheController;
+use App\Http\Controllers\FacturaController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -34,13 +35,20 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('/coches', [CocheController::class, 'index'])->name('coche.index');
+    Route::get('/coche', [CocheController::class, 'index'])->name('coche.index');
     Route::get('/coche/create', [CocheController::class , 'create'])->name('coche.create');
     Route::post('/coche/create', [CocheController::class, 'store'])->name('coche.store');
     Route::get('/coche/{id}', [CocheController::class, 'show'])->name('coche.show');
     Route::get('/coche/{id}/edit', [CocheController::class, 'edit'])->name('coche.edit');
     Route::post('/coche/{id}/edit', [CocheController::class, 'update'])->name('coche.update');
     Route::delete('/coche/{id}/destroy', [CocheController::class, 'destroy'])->name('coche.delete');
+    Route::post('/coche/{id}/alquilar', [FacturaController::class, 'alquilar'])->name('coche.alquilar');
+});
+
+
+Route::middleware('auth')->group(function() {
+    Route::get('/factura', [FacturaController::class, 'index'])->name('factura.index');
+    Route::get('/factura/{id}', [FacturaController::class , 'show'])->name('factura.show');
 });
 
 Route::middleware('admin')->group(function () {
@@ -48,5 +56,6 @@ Route::middleware('admin')->group(function () {
     Route::get('/admin/coches', [AdminController::class, 'coches'])->name('admin.coches');
     Route::get('/admin/validar/coche/{id}', [AdminController::class, 'validar'])->name('admin.validar');
 });
+
 
 require __DIR__.'/auth.php';

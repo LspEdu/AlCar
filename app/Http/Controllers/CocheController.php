@@ -51,7 +51,7 @@ class CocheController extends Controller
             'modelo' => 'required | string | max:255',
             'tipo' => 'required | in:' . implode(',', Coche::TIPOS),
             'precio' => 'required | integer | min:1',
-            'matricula' => 'required | string | min:7',
+            'matricula' => 'required |unique:coches,matricula| string | min:7 | max:15',
             'combustible' => 'nullable | in:' . implode(',', Coche::COMBUSTIBLES),
             'cambio' => 'required | in:' . implode(',', Coche::CAMBIO),
             'ano' => 'nullable | date | after_or_equal:today',

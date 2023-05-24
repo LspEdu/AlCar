@@ -87,7 +87,7 @@
                 </div>
             </div>
         </div>
-        <form class="col-12 col-md-4 bg-white rounded">
+        <form method="POST" class="col-12 col-md-4 bg-white rounded" action="{{route('coche.alquilar', ['id' => $coche->id])}}">
             @csrf
             <div class="row ">
                 Aquí va el calendario con JS

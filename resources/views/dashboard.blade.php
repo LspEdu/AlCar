@@ -52,7 +52,7 @@
                 <div class="col-12">
                     <div class="card mb-4 shadow mb-md-0">
                         <div class="card-body">
-                            <p class="mb-4"><span class="text-primary font-italic me-1">Coches</span>
+                            <p class="mb-4"><span class="text-gray-900 fs-3 font-italic me-1">Coches</span> {{-- ESTO DEBE CONVERTIRSE EN <a> que mande a user->coches --}}
                             </p>
                             <ul>
                                 @forelse (Auth::user()->coches as $coche)
@@ -70,11 +70,19 @@
                 <div class="col-12">
                     <div class="card mb-4 shadow mb-md-0">
                         <div class="card-body">
-                            <p class="mb-4"><span class="text-primary font-italic me-1">Facturas</span>
+                            <p class="mb-4"><span class="text-gray-900 fs-3 font-italic me-1">Últimas facturas</span>
                             </p>
-                            <ul>
-                                <h4>¡No tienes facturas! ¿A qué esperas para alquilar?</h4>
-                            </ul>
+
+                                @forelse (Auth::user()->facturas->sortByDesc('created_at')->take(5) as $factura)
+
+                                    <a class="link link-secondary"
+                                            href="{{route('factura.show', ['id' => $factura->id ])}}" >Factura {{$factura->codigo}} | {{ $factura->coche->marca }}
+                                            {{ $factura->coche->modelo }} | {{$factura->FechaInicio}} </a>
+                                            <hr>
+                                @empty
+                                    <h4 style="text-indent: 1em">¡No tienes facturas! ¿A qué esperas para alquilar?</h4>
+                                @endforelse
+
                         </div>
                     </div>
                 </div>

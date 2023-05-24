@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('modelo');
             $table->enum('tipo', ['utilitario', 'deportivo', 'superdeportivo', 'biplaza', 'offroad']);
             $table->float('precio', 8, 2);
-            $table->string('matricula', 15);
+            $table->string('matricula', 15)->unique();
             $table->enum('cambio', ['automatico', 'manual']);
             $table->enum('combustible', ['gasolina', 'diesel', 'electrico', 'hibrido'])->nullable();
             $table->year('ano')->nullable();

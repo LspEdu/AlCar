@@ -8,6 +8,10 @@
             <h6>Precio: <small>{{$coche->precio}}€</small></h6>
             <p>Tipo: <small>{{ucfirst($coche->tipo)}}</small></p>
         </div>
-        <a href="{{route('coche.show',['id' => $coche->id])}}" class="btn btn-outline-success text-center">Alquilar</a>
+        @if (Auth::user() == $coche->user)
+            <a href="{{route('coche.show',['id' => $coche->id])}}" class="btn btn-outline-warning text-center">Ver</a>
+        @else
+            <a href="{{route('coche.show',['id' => $coche->id])}}" class="btn btn-outline-success text-center">Alquilar</a>
+        @endif
     </div>
 </div>

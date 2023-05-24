@@ -11,7 +11,7 @@ class Coche extends Model
 {
     use HasFactory;
 
-        /**
+    /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
@@ -35,15 +35,6 @@ class Coche extends Model
     ];
 
 
-    /**
-     * Get the user that owns the Coche
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function user(): BelongsTo
-    {
-        return $this->belongsTo(User::class);
-    }
 
 
     /**
@@ -83,6 +74,23 @@ class Coche extends Model
         'manual',
         'automatico',
     ];
+
+    /**
+     * Get the user that owns the Coche
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
+
+    public function facturas()
+    {
+        return $this->hasMany(Factura::class);
+    }
+
 
 
     public function setValidadoFalse()

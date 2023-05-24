@@ -30,7 +30,7 @@ class User extends Authenticatable
         'avatar',
     ];
 
-    protected string $rol;
+    private string $rol;
 
 
     /**
@@ -69,6 +69,12 @@ class User extends Authenticatable
     public function coches(): HasMany
     {
         return $this->hasMany(Coche::class);
+    }
+
+
+    public function facturas()
+    {
+        return $this->hasMany(Factura::class);
     }
 
 

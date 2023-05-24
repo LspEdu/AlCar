@@ -32,6 +32,7 @@ class FacturaController extends Controller
         $hoy  = new DateTime('now');
         $mañana = new DateTime('tomorrow');
 
+        //TODO:: Rellenar a través del formulario del request
         $factura->FechaInicio = $hoy;
         $factura->FechaFin = $mañana;
         $factura->importe = $coche->precio*2;

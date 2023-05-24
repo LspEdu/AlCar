@@ -13,12 +13,16 @@
                         {{ $factura->coche->modelo }}
                     </div>
                     <div class="col">
-                        {{ $factura->coche->matricula }}
+                        <a class="text-muted" href="{{route('coche.show',['id' => $factura->coche->id])}}">
+                            {{ $factura->coche->matricula }}
+                        </a>
                     </div>
                     <div class="col">
-                        {{ $factura->coche->user->email }}
+                        <a class="text-muted" href="{{route('profile.show', ['id' => $factura->coche->user->id])}}">
+                            {{ $factura->coche->user->email }}
+                        </a>
                     </div>
-                    <div class="col text-center fs-5 align-middle bg-lime-300 rounded">
+                    <div class="col text-center fs-5 align-middle bg-lime-100 rounded">
                         {{ $factura->importe }} €
                     </div>
                     <div class="col text-center">

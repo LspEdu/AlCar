@@ -1,4 +1,5 @@
 <x-app-layout>
+    @csrf
     <x-slot name="header" class="justify-content-around">
         <h2 class="font-semibold text-xxl text-gray-800 dark:text-gray-200 leading-tight ">
             {{ $coche->marca }} {{ $coche->modelo }}

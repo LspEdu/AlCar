@@ -1,4 +1,5 @@
 <x-admin-layout>
+    @csrf
     <div class="bg-white mt-4 rounded max-h-full">
         <div class="row text-center">
             <h1>Bienvenido {{ Auth::user()->name }}</h1>
@@ -19,7 +20,6 @@
                                 <th scope="col" class="text-center">Cancelar</th> --}}
                                 <th scope="col" class="text-center">Validar</th>
                             </tr>
-
                         </thead>
                         <tbody>
                             @foreach ($cochesInvalidados as $coche)

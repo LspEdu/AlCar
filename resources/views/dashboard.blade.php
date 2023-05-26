@@ -53,11 +53,11 @@
                 <div class="col-12">
                     <div class="card mb-4 shadow mb-md-0">
                         <div class="card-body">
-                            <p class="mb-4"><span class="text-gray-900 fs-3 font-italic me-1">Coches</span>
+                            {{-- <p class="mb-4"><span class="text-gray-900 fs-3 font-italic me-1">Coches</span>
                                 {{-- ESTO DEBE CONVERTIRSE EN <a> que mande a user->coches --}}
-                            </p>
+    {{--                         </p>
                             <ul>
-                                @forelse (Auth::user()->coches as $coche)
+                                @forelse (Auth::user()->coches()->paginate(5) as $coche)
                                     <li><a class="link link-secondary"
                                             href="{{ route('coche.show', ['id' => $coche->id]) }}">{{ $coche->marca }}
                                             {{ $coche->modelo }} - {{ $coche->matricula }}</a></li>
@@ -65,6 +65,56 @@
                                     <h4>¡No tienes ningún coche registrado!</h4>
                                 @endforelse
                             </ul>
+                            {{ Auth::user()->coches()->paginate(5)->links() }} --}}
+                            <div x-data="{
+                                items: {{Auth::user()->coches}},
+                                currentPage: 1,
+                                pageSize: 5,
+                                getItems: function() {
+                                    var start = (this.currentPage - 1) * this.pageSize;
+                                    var end = start + this.pageSize;
+                                    return this.items.slice(start, end);
+                                },
+                                totalPages: function() {
+                                    return Math.ceil(this.items.length / this.pageSize);
+                                },
+                                goToPage: function(page) {
+                                    if (page >= 1 && page <= this.totalPages()) {
+                                        this.currentPage = page;
+                                    }
+                                },
+                                previousPage: function() {
+                                    this.goToPage(this.currentPage - 1);
+                                },
+                                nextPage: function() {
+                                    this.goToPage(this.currentPage + 1);
+                                }
+                            }">
+                            <h1 class="text-center text-3xl font-bold my-6">Lista de Coches</h1>
+        <ul>
+            <template x-for="item in getItems()" :key="item.id">
+                <li class="py-2">
+                    <a class="link link-secondary" :href="'/coche/' + item.id" x-text="item.marca + ' ' + item.modelo + ' - ' + item.matricula"></a>
+                </li>
+            </template>
+            <li x-show="totalPages() === 0"> No hay ningún coche </li>
+        </ul>
+        <div class="flex justify-center items-center mt-6">
+            <button x-on:click="previousPage()" x-show="totalPages() !== 0" :disabled="currentPage === 1" class="px-4   text-gray-700 rounded-l">
+                <span class="material-symbols-outlined">
+                    navigate_before
+                    </span>
+            </button>
+            <div class="px-4 py-1  text-gray-700" x-show="totalPages() !== 0">
+                 <span x-text="currentPage"></span> de <span x-text="totalPages()"></span>
+            </div>
+            <button x-on:click="nextPage()" x-show="totalPages() !== 0" :disabled="currentPage === totalPages() " class="px-4 py-1  text-gray-700 rounded-r">
+                               <span class="material-symbols-outlined">
+                    navigate_next
+                    </span>
+            </button>
+        </div>
+    </div>
                         </div>
                     </div>
                 </div>

@@ -91,7 +91,7 @@
         <form method="POST" class="col-12 col-md-4 bg-white rounded h-fit shadow"
             action="{{ route('coche.alquilar', ['id' => $coche->id]) }}">
             @csrf
-            <div class="row mt-3">
+            <div class="row mt-3 justify-content-around">
                 <div class="col-12 col-md-5">
                     <label class="form-label fs-5 fw-bold" for="fechaInicio">Fecha Inicio </label>
                     <input class="form-control" type="date" name="fechaInicio" id="fechaInicio">
@@ -121,7 +121,7 @@
             </div>
         </form>
     </div>
-    <script src="/node_modules/flatpickr/dist/flatpickr.min.js"></script>
+
     <script defer>
         let fin,
             precio = {{ $coche->precio }};
@@ -160,7 +160,7 @@
                         {
                             from: "{{ $factura->FechaInicio }}",
                             to: "{{ $factura->FechaFin }}"
-                        }
+                        },
                     @endforeach
 
                 ],
@@ -193,7 +193,7 @@
                         {
                             from: "{{ $factura->FechaInicio }}",
                             to: "{{ $factura->FechaFin }}"
-                        }
+                        },
                     @endforeach
 
                 ],

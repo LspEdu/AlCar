@@ -22,8 +22,12 @@ class CocheController extends Controller
     public function index()
     {
         $coches = Coche::where('validado', true)->get();
+
         return view('coches.coches', [ // TODO THINK ABOUT NAMES
-            'coches' => $coches
+            'coches' => $coches,
+            'tipos' => Coche::TIPOS,
+            'combustibles' => Coche::COMBUSTIBLES,
+            'cambio' => Coche::CAMBIO,
         ]);
     }
 

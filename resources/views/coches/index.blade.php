@@ -110,7 +110,7 @@
                     <h4>Coste total </h4>
                 </div>
                 @if (Auth::user()->id == $coche->user_id)
-                    <a class="btn btn-outline-warning w-25 mt-2 fs-4"
+                    <a class="btn btn-outline-warning w-25 mb-5 mt-2 fs-4"
                         href="{{ route('coche.edit', ['id' => $coche->id]) }}">Editar</a>
                 @else
                     <input type="submit" value="Alquilar" class="btn btn-outline-success w-25 mb-5 mt-2">

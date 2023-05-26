@@ -108,6 +108,11 @@
                 </template>
             </select>
         </div>
+        <template x-if="paginatedCoches.length === 0">
+            <div class="col-12 bg white text-center mt-3  ">
+                <h3>No hay coches disponibles con esas características :(</h3>
+            </div>
+        </template>
       </div>
         <div class="row row-cols-1 row-cols-md-3 mt-3 row-cols-lg-4 gap-1 justify-content-md-around justify-content-center">
           <template x-for="coche in paginatedCoches" :key="coche.id">
@@ -124,9 +129,10 @@
               </div>
             </div>
           </template>
-          <div>
+
+          <div class="col-12">
             <button class="btn bg-white" @click="previousPage" x-show="currentPage !== 1">Anterior</button>
-            <button class="btn bg-white" @click="nextPage" x-show="currentPage !== totalPages">Siguiente</button>
+            <button class="btn bg-white" @click="nextPage" x-show="currentPage !== totalPages && totalPages > 0">Siguiente</button>
           </div>
         </div>
       </div>

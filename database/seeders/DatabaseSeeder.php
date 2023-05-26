@@ -14,7 +14,7 @@ class DatabaseSeeder extends Seeder
      * @return void
      */
     public function run()
-    {
+    {/*
          \App\Models\User::factory(10)->create();
 
          \App\Models\User::factory()->has(\App\Models\Coche::factory(10))->create([
@@ -25,8 +25,18 @@ class DatabaseSeeder extends Seeder
              'email' => 'test@example.com',
              'rol' => 'user',
              'password' => Hash::make('testtest'),
-         ]);
+         ]); */
 
+         \App\Models\User::factory()->create([
+            'name' => 'huesped',
+            'ape1' => 'huesped',
+            'tlf' => '123123123',
+            'fechNac' => '1999-07-21',
+            'email' => 'huesped@example.com',
+            'rol' => 'user',
+            'password' => Hash::make('huesped123'),
+        ]);
+/*
          \App\Models\User::factory()->create([
             'name' => 'admin',
             'ape1' => 'admin',
@@ -37,6 +47,6 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('adminadmin'),
         ]);
 
-
+ */
     }
 }

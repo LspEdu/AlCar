@@ -26,6 +26,7 @@ class Coche extends Model
         'cambio',
         'ano',
         'motor',
+        'km',
         'cilindrada',
         'color',
         'plazas',

@@ -22,7 +22,7 @@
         coches: {{ $coches }},
         usuario: {{ Auth::user() }},
         currentPage: 1,
-        itemsPerPage: 10,
+        itemsPerPage: 9,
         get filteredCoches() {
           const buscarLower = this.buscar.toLowerCase();
           return this.coches.filter(coche => {
@@ -113,6 +113,10 @@
                 <h3>No hay coches disponibles con esas características :(</h3>
             </div>
         </template>
+        <div class="col-12 justify-content-center text-center mt-2">
+            <button class="btn btn-secondary" @click="previousPage" :disabled="currentPage === 1">Anterior</button>
+            <button class="btn btn-secondary" @click="nextPage" :disabled="currentPage === totalPages || totalPages < 0">Siguiente</button>
+          </div>
       </div>
         <div class="row row-cols-1 row-cols-md-3 mt-3 row-cols-lg-4 gap-1 justify-content-md-around justify-content-center">
           <template x-for="coche in paginatedCoches" :key="coche.id">
@@ -121,7 +125,7 @@
               <div class="card-body">
                 <h5 class="card-title" x-text="coche.marca + ' ' + coche.modelo"></h5>
                 <div class="card-text">
-                  <h6>Precio x día: <small x-text="coche.precio + '€'">€</small></h6>
+                  <h6>Precio por día: <small x-text="coche.precio + '€'">€</small></h6>
                   <p>Matrícula: <small x-text="coche.matricula"></small></p>
                 </div>
                 <a :href="'/coche/'+coche.id" x-show="coche.user === usuario" class="btn btn-outline-warning text-center">Ver</a>
@@ -130,11 +134,7 @@
             </div>
           </template>
 
-          <div class="col-12">
-            <button class="btn bg-white" @click="previousPage" x-show="currentPage !== 1">Anterior</button>
-            <button class="btn bg-white" @click="nextPage" x-show="currentPage !== totalPages && totalPages > 0">Siguiente</button>
-          </div>
-        </div>
+
       </div>
 <script>
 

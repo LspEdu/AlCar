@@ -21,9 +21,9 @@ class CocheController extends Controller
      */
     public function index()
     {
-        $coches = Coche::where('validado', true)->get();
+        $coches = Coche::where('validado', true)->where('activo',true)->get();
 
-        return view('coches.coches', [ // TODO THINK ABOUT NAMES
+        return view('coches.list', [ // TODO THINK ABOUT NAMES
             'coches' => $coches,
             'tipos' => Coche::TIPOS,
             'combustibles' => Coche::COMBUSTIBLES,

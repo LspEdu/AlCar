@@ -28,6 +28,7 @@ class User extends Authenticatable
         'email',
         'password',
         'avatar',
+        'activo'
     ];
 
     private string $rol;
@@ -60,6 +61,11 @@ class User extends Authenticatable
         $this->save();
     }
 
+
+    public function setActivo(bool $value)
+    {
+        $this->activo = $value;
+    }
 
     /**
      * Get all of the coches for the User

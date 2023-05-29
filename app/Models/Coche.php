@@ -33,14 +33,15 @@ class Coche extends Model
         'lat',
         'lng',
         'foto',
-        'dias'
+        'dias',
+        'activo',
     ];
 
 
 
 
     /**
-     * Propiedad que hace que el coche sea visible para todos los usuarios o no
+     * Propiedad que cambia el administrador
      *
      * @var boolean
      */

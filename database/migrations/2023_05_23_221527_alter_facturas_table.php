@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('codigo')->unique();
             $table->string('lat')->nullable();
             $table->string('lng')->nullable();
+            $table->integer('dias');
         });
     }
 
@@ -33,6 +34,7 @@ return new class extends Migration
             $table->dropColumn('codigo');
             $table->dropColumn('lat');
             $table->dropColumn('lng');
+            $table->dropColumn('dias');
         });
     }
 };

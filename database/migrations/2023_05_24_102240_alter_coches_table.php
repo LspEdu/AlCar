@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::table('coches', function (Blueprint $table) {
             $table->string('foto');
+            $table->boolean('activo')->default(true);
         });
     }
 
@@ -27,6 +28,7 @@ return new class extends Migration
     {
         Schema::table('coches', function (Blueprint $table) {
             $table->dropColumn('foto');
+            $table->dropColumn('activo');
         });
     }
 };

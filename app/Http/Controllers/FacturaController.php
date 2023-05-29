@@ -15,6 +15,7 @@ class FacturaController extends Controller
     {
         return view('factura.index', [
             'facturas' => $request->user()->facturas,
+            'hasFactura' => false,
         ]);
     }
 
@@ -40,15 +41,25 @@ class FacturaController extends Controller
             'fechaInicio' => 'required | date',
             'fechaFin' => 'required | date',
         ]);
+        $alquilado = false;
+        $facturas = $coche->facturas;
 
         $fechaInicio = new \DateTime($request->input('fechaInicio'));
         $fechaFin = new \DateTime($request->input('fechaFin'));
+        foreach($facturas as $factura){
+            $fechInicioAlquilado = new \DateTime($factura->FechaInicio);
+            $fechFinAlquilado = new \DateTime($factura->FechaFin);
+            $inicio = (($fechInicioAlquilado->getTimestamp() - $fechaInicio->getTimestamp()) / (60 * 60 * 24))*-1;
+            $fin = (($fechFinAlquilado->getTimestamp() - $fechaFin->getTimestamp()) / (60 * 60 * 24))*-1;
+            if(($inicio >= 0 && $fin <= 0) || ($inicio <= 0 && $fin >= 0))$alquilado = true;
+        }
+        if($alquilado)  return redirect()->back()->withErrors(['fechaInicio' => 'Error, selecciona un período de fechas válidos'])->withInput();
 
         $diff = $fechaFin->diff($fechaInicio);
         $factura = new Factura();
 
 
-         $factura->FechaInicio = $fechaInicio;
+        $factura->FechaInicio = $fechaInicio;
         $factura->FechaFin = $fechaFin;
         $factura->importe = $coche->precio * $diff->days ;
         $factura->user()->associate($request->user());

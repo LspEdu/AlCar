@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->enum('rol', ['user','admin'])->default('user');
+            $table->boolean('activo')->default(true);
         });
     }
 
@@ -27,6 +28,7 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('rol');
+            $table->dropColumn('activo');
         });
     }
 };

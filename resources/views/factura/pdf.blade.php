@@ -134,6 +134,10 @@
                                 <td>Correo Electrónico</td>
                                 <td>{{ $factura->user->email }}</td>
                             </tr>
+                            <tr>
+                                <td>Método de Pago Usado</td>
+                                <td>{{$factura->metodoPago}}</td>
+                            </tr>
                         </table>
                     </td>
                 </tr>

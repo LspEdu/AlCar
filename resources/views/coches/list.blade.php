@@ -114,8 +114,8 @@
             </div>
         </template>
         <div class="col-12 justify-content-center text-center mt-2">
-            <button class="btn btn-secondary" @click="previousPage" :disabled="currentPage === 1">Anterior</button>
-            <button class="btn btn-secondary" @click="nextPage" :disabled="currentPage === totalPages || totalPages < 0">Siguiente</button>
+            <button class="btn btn-secondary" @click="previousPage" x-show="totalPages > 0" :disabled="currentPage === 1">Anterior</button>
+            <button class="btn btn-secondary" @click="nextPage" x-show="totalPages > 0" :disabled="currentPage === totalPages">Siguiente</button>
           </div>
       </div>
         <div class="row row-cols-1 row-cols-md-3 mt-3 row-cols-lg-4 gap-1 justify-content-md-around justify-content-center">

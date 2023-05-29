@@ -21,9 +21,10 @@ return new class extends Migration
             $table->float('importe', 10, 2);
 
             $table->foreignId('user_id')
+                  ->nullable()
                   ->constrained('users')
                   ->onUpdate('cascade')
-                  ->onDelete('cascade');
+                  ->nullOnDelete();
 
             $table->foreignId('coche_id')
                   ->constrained('coches')

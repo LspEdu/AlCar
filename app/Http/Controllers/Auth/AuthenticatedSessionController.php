@@ -9,6 +9,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+use Illuminate\Validation\ValidationException;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -26,7 +27,14 @@ class AuthenticatedSessionController extends Controller
     public function store(LoginRequest $request): RedirectResponse
     {
         $request->authenticate();
+        $user = $request->user();
+        if ($user->activo === false) {
+            Auth::logout();
 
+            throw ValidationException::withMessages([
+                'email' => "Este usuario ha sido dado de baja. \n Si desea volver a activarlo, póngase en contacto con el administrador admin@example.com",
+            ]);
+        }
         $request->session()->regenerate();
 
         return redirect()->intended(RouteServiceProvider::HOME);

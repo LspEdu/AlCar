@@ -33,6 +33,7 @@ class Coche extends Model
         'lat',
         'lng',
         'foto',
+        'dias'
     ];
 
 

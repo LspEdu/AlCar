@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Coche;
 use App\Models\Factura;
-use DateTime;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\View;
 
 class FacturaController extends Controller
 {
@@ -20,7 +21,16 @@ class FacturaController extends Controller
     public function show($id)
     {
         $factura = Factura::find($id);
-        return "AQUÍ VA UN PDF";
+        $data = [
+            'factura' => $factura,
+            'titulo' => 'Factura_'.$factura->codigo,
+            'hoy' => new \DateTime(),
+            'dias' => 2,
+        ];
+
+        $pdf = Pdf::loadView('factura.pdf',$data);
+        return $pdf->stream();
+
     }
 
     public function alquilar(Request $request, $id)
@@ -43,6 +53,7 @@ class FacturaController extends Controller
         $factura->importe = $coche->precio * $diff->days ;
         $factura->user()->associate($request->user());
         $factura->coche()->associate($coche);
+        $factura->dias = $diff->days;
         $factura->codigo = $factura->FechaFin->format('Ymd').$factura->FechaInicio->format('Ymd').$coche->matricula;
         $factura->lat = $coche->lat;
         $factura->lng = $coche->lng;

@@ -125,7 +125,7 @@
                             </p>
 
                             @forelse (Auth::user()->facturas->sortByDesc('created_at')->take(5) as $factura)
-                                <a class="link link-secondary"
+                                <a class="link link-secondary" target="_blank"
                                     href="{{ route('factura.show', ['id' => $factura->id]) }}">Factura
                                     {{ $factura->codigo }} | {{ $factura->coche->marca }}
                                     {{ $factura->coche->modelo }} | {{ $factura->FechaInicio }} </a>

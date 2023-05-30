@@ -101,7 +101,7 @@
             <label class="mt-1 ms-1" for="cambio">
                 Cambio
               </label>
-              <select x-model="cambioCoche" class="form-control mt-1 mb-2 p-1 border border-gray-400 rounded-md shadow">
+              <select id="cambio" name="cambio" x-model="cambioCoche" class="form-control mt-1 mb-2 p-1 border border-gray-400 rounded-md shadow">
                   <option value="">Cualquiera</option>
                   <template x-for="cambio in cambios" :key="cambio">
                     <option x-text="cambio"></option>
@@ -121,11 +121,11 @@
         <div class="row row-cols-1 row-cols-md-3 mt-3 row-cols-lg-4 gap-1 justify-content-md-around justify-content-center">
           <template x-for="coche in paginatedCoches" :key="coche.id">
             <div class="col-11 card col-sm-5 col-lg-3 mt-1" >
-              <img :src="'{{ asset('') }}' + coche.foto" class="card-img-top w-100 mt-1 rounded" style="height: 11em" alt="fotoCoche" />
+              <img :src="'{{ asset('') }}' + coche.foto" class="card-img-top w-100 mt-1 rounded shadow-sm cursor-pointer hover-zoom " style="height: 11em" alt="fotoCoche" />
               <div class="card-body">
-                <h5 class="card-title" x-text="coche.marca + ' ' + coche.modelo"></h5>
+                <h3 class="card-title" x-text="coche.marca + ' ' + coche.modelo"></h3>
                 <div class="card-text">
-                  <h6>Precio por día: <small x-text="coche.precio + '€'">€</small></h6>
+                  <h5>Precio por día: <span class="text-success" x-text="coche.precio + '€'">€</span></h5>
                   <p>Matrícula: <small x-text="coche.matricula"></small></p>
                 </div>
                 <a :href="'/coche/'+coche.id" x-show="coche.user === usuario" class="btn btn-outline-warning text-center">Ver</a>

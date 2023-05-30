@@ -6,6 +6,7 @@ use App\Models\Coche;
 use Error;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Throwable;
 
@@ -85,11 +86,13 @@ class CocheController extends Controller
      */
     public function show($id)
     {
+
         $coche = Coche::find($id);
 
         return view('coches.index', [
             'coche' => $coche,
         ]);
+
     }
 
     /**
@@ -101,12 +104,14 @@ class CocheController extends Controller
     public function edit(Request $request, $id)
     {
         $coche = Coche::find($id);
+        if($coche->user == Auth::user())
         return view('coches.edit', [
             'coche' => $coche,
             'combustibles' => Coche::COMBUSTIBLES,
             'tipos' => Coche::TIPOS,
             'cambio' => Coche::CAMBIO,
         ]);
+        else return back();
     }
 
     public function update(Request $request, $id)

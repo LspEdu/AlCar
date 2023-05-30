@@ -131,24 +131,37 @@
                     <x-input-error class="mt-2" :messages="$errors->get('precio')" />
                 </div>
             </div>
+            <div class="col-12 col-md-3">
+                <div class="mb-3">
+                    <label for="km" class="form-label">Kilometraje</label>
+                    <input type="number" min="1"  class="form-control shadow-sm text-end" name="km"
+                        id="km" >
+                    <x-input-error class="mt-2" :messages="$errors->get('km')" />
+                </div>
+            </div>
             <div class="col-12 col-md-3 text-center mt-2 mb-2">
-                <label class="form-label fs-5 " for="foto">Nueva Foto del Coche<span
-                        class="text-danger">*</span></label><br>
-                <input class="text-center w-full" accept="image/*" type="file" name="foto"
-                    id="foto">
-                <x-input-error class="mt-2" :messages="$errors->get('foto')"></x-input-error>
+                <label class="form-label fs-5 " for="foto">Foto del Coche<span class="text-danger">*</span></label><br>
+                <input class="text-center w-full" accept="image/*" type="file" name="foto" required id="foto">
+            </div>
+            <div class="col-12 col-md-3">
+                <div class="mb-3">
+                    <label for="activo" class="form-label">¿Quieres mostrar el coche al resto de usuarios?</label>
+                    <input type="checkbox" min="1" required class=" w-10 shadow-sm " name="activo"
+                        id="activo" checked />
+                    <x-input-error class="mt-2" :messages="$errors->get('activo')" />
+                </div>
             </div>
             <div class="col-12 gap-1 justify-content-center flex-row-reverse row">
                 <hr>
                 <x-primary-button class="col-12 col-md-3  m-2 mb-3">
-                    {{ __('Registrar') }}
+                    {{ __('Editar') }}
                 </x-primary-button>
             </div>
     </form>
     <form method="POST" class="col-12 text-center" action="{{ route('coche.delete', ['id' => $coche->id]) }}">
         @csrf
         @method('delete')
-
+        Ten cuidado, esta acción es permanente
         <x-danger-button  class="col-9 col-md-3 m-2 mb-3 ">
             {{ __('Eliminar') }}
         </x-danger-button>

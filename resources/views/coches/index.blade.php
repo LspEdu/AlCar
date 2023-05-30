@@ -31,6 +31,10 @@
         <div class="col-12 col-md-6 bg-white rounded shadow">
             <div class="card mt-2 border-0">
                 <h2 class="card-title m-2 fw-bold ">{{ $coche->marca }} {{ $coche->modelo }} </h2>
+                @if (Auth::user()->id == $coche->user_id)
+                    <a class="btn btn-outline-warning w-25 mb-5 mt-2 fs-4"
+                        href="{{ route('coche.edit', ['id' => $coche->id]) }}">Editar</a>
+                @endif
                 <div class="card-body">
                     <img class="card-img-top img-fluid shadow" src="{{ asset($coche->foto) }}" style=" height: 20em"
                         alt="Title">
@@ -52,6 +56,10 @@
                                 <tr class="">
                                     <td scope="row" class="fw-bold">Cambio</td>
                                     <td class="text-end">{{ $coche->cambio }}</td>
+                                </tr>
+                                <tr class="">
+                                    <td scope="row" class="fw-bold">Año de Matriculación</td>
+                                    <td class="text-end">{{ $coche->ano }}</td>
                                 </tr>
                                 <tr class="">
                                     <td scope="row" class="fw-bold">Matrícula</td>
@@ -109,12 +117,9 @@
                 <div class="col-12">
                     <h4>Coste total </h4>
                 </div>
-                @if (Auth::user()->id == $coche->user_id)
-                    <a class="btn btn-outline-warning w-25 mb-5 mt-2 fs-4"
-                        href="{{ route('coche.edit', ['id' => $coche->id]) }}">Editar</a>
-                @else
-                    <input type="submit" value="Alquilar" class="btn btn-outline-success w-25 mb-5 mt-2">
-                @endif
+                    <input type="submit" @if (Auth::user()->id == $coche->user_id)
+                    disabled
+                    @endif value="Alquilar" class="btn btn-outline-success w-25 mb-5 mt-2">
                 <input type="text" id="precio"
                     class="form-input col-6 text-right m-2 border-2 mb-5  focus-outline-success rounded bg-slate-200 text-success fw-bolder fs-4"
                     value=" {{ $coche->precio }}€" readonly>

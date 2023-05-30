@@ -63,6 +63,7 @@ class CocheController extends Controller
             'cilindrada' => 'nullable | string | max:255',
             'color' => 'nullable | string | max:255',
             'plazas' => 'nullable | integer | max:14 | min:1',
+            'km' => 'nullable | integer | min:1',
             'foto' => 'required | image | max:2028',
         ]);
 

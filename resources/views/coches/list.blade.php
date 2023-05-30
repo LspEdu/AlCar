@@ -27,9 +27,9 @@
           const buscarLower = this.buscar.toLowerCase();
           return this.coches.filter(coche => {
             return (
-              (coche.marca.toLowerCase().startsWith(buscarLower) ||
-                coche.modelo.toLowerCase().startsWith(buscarLower) ||
-                coche.matricula.toLowerCase().startsWith(buscarLower)) &&
+              (coche.marca.toLowerCase().includes(buscarLower) ||
+                coche.modelo.toLowerCase().includes(buscarLower) ||
+                coche.matricula.toLowerCase().includes(buscarLower)) &&
               (this.tipoCoche === '' || coche.tipo === this.tipoCoche) &&
               (this.plazasCoche === '' || coche.plazas >= parseInt(this.plazasCoche)) &&
               (this.combustibleCoche === '' || coche.combustible === this.combustibleCoche) &&
@@ -121,7 +121,7 @@
         <div class="row row-cols-1 row-cols-md-3 mt-3 row-cols-lg-4 gap-1 justify-content-md-around justify-content-center">
           <template x-for="coche in paginatedCoches" :key="coche.id">
             <div class="col-11 card col-sm-5 col-lg-3 mt-1" >
-              <img :src="'{{ asset('') }}' + coche.foto" class="card-img-top w-100 mt-1 rounded" alt="fotoCoche" />
+              <img :src="'{{ asset('') }}' + coche.foto" class="card-img-top w-100 mt-1 rounded" style="height: 11em" alt="fotoCoche" />
               <div class="card-body">
                 <h5 class="card-title" x-text="coche.marca + ' ' + coche.modelo"></h5>
                 <div class="card-text">

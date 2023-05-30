@@ -54,8 +54,11 @@ Route::middleware('auth')->group(function() {
 
 Route::middleware('admin')->group(function () {
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
-    Route::get('/admin/coches', [AdminController::class, 'coches'])->name('admin.coches');
-    Route::get('/admin/validar/coche/{id}', [AdminController::class, 'validar'])->name('admin.validar');
+    Route::get('/admin/coche', [AdminController::class, 'coches'])->name('admin.coches');
+    Route::get('/admin/coche/{id}', [AdminController::class, 'showCoche'])->name('admin.coche');
+    Route::get('/admin/coche/{id}/validar', [AdminController::class, 'validar'])->name('admin.validar');
+    Route::get('/admin/usuario', [AdminController::class, 'usuarios'])->name('admin.usuarios');
+    Route::get('/admin/usuario/{id}', [AdminController::class, 'showUsuario'])->name('admin.usuario');
 });
 
 

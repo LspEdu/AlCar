@@ -17,12 +17,39 @@ class AdminController extends Controller
         ]);
     }
 
+    public function coches() {
+
+        $coches = Coche::all();
+        return view('admin.coches-list', [
+            'coches' => $coches
+        ]);
+    }
+
+    public function showCoche($id)
+    {
+        $coche = Coche::find($id);
+
+        return view('admin.coche', [
+            'coche' => $coche,
+        ]);
+    }
+
+    public function usuarios()
+    {
+        # code...
+    }
+
+    public function showUsuario()
+    {
+        # code...
+    }
+
     public function validar ($id)
     {
         $coche = Coche::find($id);
-        $coche->validado = true;
+        $coche->validado = !$coche->validado;
         $coche->save();
 
-        return redirect()->route('admin.index');
+        return back();
     }
 }

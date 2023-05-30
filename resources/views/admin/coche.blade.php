@@ -1,43 +1,19 @@
-<x-app-layout>
+<x-admin-layout>
     @csrf
     <x-slot name="header" class="justify-content-around">
         <h2 class="font-semibold text-xxl text-gray-800 dark:text-gray-200 leading-tight ">
             {{ $coche->marca }} {{ $coche->modelo }}
+            <a href="{{ route('admin.validar', ['id' => $coche->id]) }}"
+                @if ($coche->validado) class="bg-success btn"><span class="material-symbols-outlined">done</span>
+                @else
+                class="bg-danger btn" >X  @endif
+            </a>
         </h2>
-
-        @if (Auth::user()->id == $coche->user_id)
-            @if ($coche->validado)
-                <div class="bg-success rounded">
-
-                    <p class=" text-white fs-4 bg-success rounded  align-middle">
-                        <span class="material-symbols-outlined">
-                            check_circle
-                        </span>
-                        ¡Está todo correcto! Si cambias algún dato, deberás esperar de nuevo una validación.
-                    </p>
-                </div>
-            @else
-                <div class="bg-warning rounded">
-                    <p class="ms-2 text-white fs-4  rounded  align-middle">
-                        <span class="material-symbols-outlined fs-1">report</span>
-                        ¡Perfecto!, Ahora toca esperar a que un administrador
-                        valide tu coche!
-                    </p>
-                </div>
-            @endif
-        @endif
     </x-slot>
     <div class="mt-4 mt-md-2 row gap-2 justify-content-around ms-1 me-1">
         <div class="col-12 col-md-6 bg-white rounded shadow">
-            <div class="card mt-2 border-0">
-                <h2 class="card-title m-2 fw-bold ">{{ $coche->marca }} {{ $coche->modelo }}@if (Auth::user()->id == $coche->user_id)
-                        <a class="align-middle mb-5 mt-2 fs-4"
-                            href="{{ route('coche.edit', ['id' => $coche->id]) }}"><span
-                                class="material-symbols-outlined">
-                                edit
-                            </span></a>
-                    @endif
-                </h2>
+            <div class="card mt-2 border-0 align-middle">
+                <h2 class="card-title m-2 fw-bold ">{{ $coche->marca }} {{ $coche->modelo }} </h2>
                 <div class="card-body">
                     <img class="card-img-top img-fluid shadow" src="{{ asset($coche->foto) }}" style=" height: 20em"
                         alt="Title">
@@ -95,38 +71,27 @@
                             </tbody>
                         </table>
                     </div>
-
                 </div>
             </div>
         </div>
-        <form method="POST" class="col-12 col-md-4 bg-white rounded h-fit shadow"
-            action="{{ route('coche.alquilar', ['id' => $coche->id]) }}">
-            @csrf
-            <div class="row mt-3 justify-content-around">
-                <div class="col-12 col-md-5">
-                    <label class="form-label fs-5 fw-bold" for="fechaInicio">Fecha Inicio </label>
-                    <input class="form-control" type="date" name="fechaInicio" id="fechaInicio">
-                    <x-input-error class="mt-2" :messages="$errors->get('fechaInicio')" />
+        <div class="col-12 col-md-4  rounded h-fit ">
+            <div class="card text-start">
+                <h3 class="card-title  mt-2 text-center"><a
+                        href="{{ route('admin.usuario', ['id' => $coche->user->id]) }}"
+                        class="link link-secondary">Dueño del Coche</a></h3>
+                <div class="card-body row">
+                    <img src="{{ $coche->user->avatar ?? '/storage/webo.jpg' }}" alt="No tiene foto"
+                        class="img-fluid h-25 col-3">
+                    <div class="col-9">
+                        <p>Nombre : {{ $coche->user->name }}</p>
+                        <p>Apellidos : {{ $coche->user->ape1 }} {{ $coche->user->ape2 }}</p>
+                        <p><a href="mailto:{{ $coche->user->email }}"> Correo : {{ $coche->user->email }}</a></p>
+                        <p>Teléfono : {{ $coche->user->tlf }}</p>
+                        <p>Estado : {{ $coche->user->activo ? 'Activo' : 'Desactivado' }}</p>
+                    </div>
                 </div>
-                <div class="col-12 col-md-5">
-                    <label class="form-label fs-5 fw-bold" for="fechaFin">Fecha Fin </label>
-                    <input class="form-control" type="date" name="fechaFin" id="fechaFin">
-                    <x-input-error class="mt-2" :messages="$errors->get('fechaFin')" />
-                </div>
-
             </div>
-            <hr>
-            <div class="row justify-around">
-                <div class="col-12">
-                    <h4>Coste total </h4>
-                </div>
-                <input type="submit" @if (Auth::user()->id == $coche->user_id) disabled @endif value="Alquilar"
-                    class="btn btn-outline-success w-25 mb-5 mt-2">
-                <input type="text" id="precio"
-                    class="form-input col-6 text-right m-2 border-2 mb-5  focus-outline-success rounded bg-slate-200 text-success fw-bolder fs-4"
-                    value=" {{ $coche->precio }}€" readonly>
-            </div>
-        </form>
+        </div>
     </div>
 
     <script defer>
@@ -211,4 +176,4 @@
     </script>
 
 
-</x-app-layout>
+</x-admin-layout>

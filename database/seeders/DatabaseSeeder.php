@@ -42,7 +42,7 @@ class DatabaseSeeder extends Seeder
             'plazas' => 5,
             'lat' => '36.76634',
             'lng' => '-6.34079',
-            'foto' => 'storage/coches/3712JKL/audiA7.png',
+            'foto' => 'storage/coches/Factory/3712JKL/audiA7.png',
             'validado' => true,
          ]);
          $user->coches()->create([
@@ -60,7 +60,7 @@ class DatabaseSeeder extends Seeder
             'plazas' => 2,
             'lat' => '36.76634',
             'lng' => '-6.34079',
-            'foto' => 'storage/coches/4729JLU/corvetteStingray.png',
+            'foto' => 'storage/coches/Factory/4729JLU/corvetteStingray.png',
             'validado' => true,
          ]);
          $user->coches()->create([
@@ -78,7 +78,7 @@ class DatabaseSeeder extends Seeder
             'plazas' => 5,
             'lat' => '36.76634',
             'lng' => '-6.34079',
-            'foto' => 'storage/coches/3698MLS/mclaren540c.jpeg',
+            'foto' => 'storage/coches/Factory/3698MLS/mclaren540c.jpeg',
             'validado' => true,
          ]);
          $user->coches()->create([
@@ -96,7 +96,7 @@ class DatabaseSeeder extends Seeder
             'plazas' => 5,
             'lat' => '36.76634',
             'lng' => '-6.34079',
-            'foto' => 'storage/coches/3945LSP/porschePanamera.png',
+            'foto' => 'storage/coches/Factory/3945LSP/porschePanamera.png',
             'validado' => true,
          ]);
          $user->coches()->create([
@@ -114,7 +114,7 @@ class DatabaseSeeder extends Seeder
             'plazas' => 5,
             'lat' => '36.76634',
             'lng' => '-6.34079',
-            'foto' => 'storage/coches/5423LSJ/shelbyMustang.jpg',
+            'foto' => 'storage/coches/Factory/5423LSJ/shelbyMustang.jpg',
             'validado' => true,
          ]);
 

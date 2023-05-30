@@ -2,11 +2,13 @@
     @csrf
     <x-slot name="header" class="justify-content-around">
         <h2 class="font-semibold text-xxl text-gray-800 dark:text-gray-200 leading-tight ">
-            {{ $coche->marca }} {{ $coche->modelo }}
+            {{ $coche->marca }} {{ $coche->modelo }} || Estado de validación
             <a href="{{ route('admin.validar', ['id' => $coche->id]) }}"
-                @if ($coche->validado) class="bg-success btn"><span class="material-symbols-outlined">done</span>
+                @if (!$coche->validado) class="bg-success btn"><span class="material-symbols-outlined">done</span>
                 @else
-                class="bg-danger btn" >X  @endif
+                class="bg-danger btn" ><span class="material-symbols-outlined">
+                    close
+                    </span> @endif
             </a>
         </h2>
     </x-slot>

@@ -21,7 +21,7 @@ class UserFactory extends Factory
         return [
             'name' => fake()->name(),
             'ape1' => fake()->name(),
-            'tlf' => fake()->numerify(),
+            'tlf' => rand(600000000, 999999999),
             'fechNac' => fake()->date(),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),

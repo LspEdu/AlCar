@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Coche;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -36,12 +37,39 @@ class AdminController extends Controller
 
     public function usuarios()
     {
-        # code...
+        $usuarios = User::all();
+        return view('admin.users-list', [
+            'usuarios' => $usuarios,
+        ]);
     }
 
-    public function showUsuario()
+    public function showUsuario($id)
     {
-        # code...
+        $usuario = User::find($id);
+        return view('admin.user', [
+            'user' => $usuario,
+        ]);
+    }
+
+    public function destroyUsuario($id)
+    {
+        $usuario = User::find($id);
+        $usuario->setActivo(false);
+        foreach ($usuario->coches as $coche) {
+            $coche->activo = false;
+            $coche->save();
+
+        }
+        $usuario->save();
+        return redirect()->route('admin.usuarios')->with('status', 'Usuario borrado');
+
+    }
+
+    public function destroyCoche($id)
+    {
+        $coche = Coche::find($id);
+        $coche->activo = false;
+        return redirect()->route('admin.coches')->with('status', 'Coche Borrado');
     }
 
     public function validar ($id)

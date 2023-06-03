@@ -24,7 +24,7 @@
             <div class="col-12 col-md-3">
                 <div class="mb-3">
                     <label for="marca" class="form-label">Marca<span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" name="marca" id="marca"
+                    <input type="text" class="form-control shadow-sm" name="marca" id="marca"
                         value="{{ $coche->marca }}">
                 </div>
                 <x-input-error class="mt-2" :messages="$errors->get('marca')" />
@@ -32,7 +32,7 @@
             <div class="col-12 col-md-3">
                 <div class="mb-3">
                     <label for="modelo" class="form-label">Modelo<span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" name="modelo" id="modelo"
+                    <input type="text" class="form-control shadow-sm" name="modelo" id="modelo"
                         value="{{ $coche->modelo }}">
                     <x-input-error class="mt-2" :messages="$errors->get('modelo')" />
                 </div>
@@ -40,7 +40,7 @@
             <div class="col-12 col-md-3">
                 <div class="mb-3">
                     <label for="ano" class="form-label">Año Matriculación</label>
-                    <input type="date" class="form-control" name="ano" id="ano"
+                    <input type="date" class="form-control shadow-sm" name="ano" id="ano"
                         value="{{ $coche->ano }}">
                     <x-input-error class="mt-2" :messages="$errors->get('ano')" />
                 </div>
@@ -48,7 +48,7 @@
             <div class="col-12 col-md-3">
                 <div class="mb-3">
                     <label for="cilindrada" class="form-label">Cilindrada</label>
-                    <input type="text" class="form-control" name="cilindrada" id="cilindrada"
+                    <input type="text" class="form-control shadow-sm" name="cilindrada" id="cilindrada"
                         value="{{ $coche->cilindrada }}">
                     <x-input-error class="mt-2" :messages="$errors->get('cilindrada')" />
                 </div>
@@ -56,7 +56,7 @@
             <div class="col-12 col-md-3">
                 <div class="mb-3">
                     <label for="cambio" class="form-label">Cambio<span class="text-danger">*</span></label>
-                    <select class="form-control shadow-sm" name="cambio" id="cambio" placeholder="">
+                    <select class="form-control shadow-sm " name="cambio" id="cambio" placeholder="">
                         @foreach ($cambio as $cambio)
                             <option @if ($cambio == $coche->cambio) selected @endif value="{{ $cambio }}">
                                 {{ $cambio }}</option>
@@ -68,7 +68,7 @@
             <div class="col-12 col-md-3">
                 <div class="mb-3">
                     <label for="motor" class="form-label">Motor</label>
-                    <input type="text" class="form-control" name="motor" id="motor"
+                    <input type="text" class="form-control shadow-sm" name="motor" id="motor"
                         value="{{ $coche->motor }}">
                 </div>
                 <x-input-error class="mt-2" :messages="$errors->get('motor')" />
@@ -76,7 +76,7 @@
             <div class="col-12 col-md-3">
                 <div class="mb-3">
                     <label for="combustible" class="form-label">Combustible</label>
-                    <select class="form-control" name="combustible" id="combustible">
+                    <select class="form-control shadow-sm" name="combustible" id="combustible">
                         @foreach ($combustibles as $combustible)
                             <option value="{{ $combustible }}">{{ $combustible }}</option>
                         @endforeach
@@ -87,7 +87,7 @@
             <div class="col-12 col-md-3">
                 <div class="mb-3">
                     <label for="matricula" class="form-label">Matrícula</label>
-                    <input type="text" class="form-control" name="matricula" id="matricula"
+                    <input type="text" class="form-control shadow-sm" name="matricula" id="matricula"
                         value="{{ $coche->matricula }}">
                     <x-input-error class="mt-2" :messages="$errors->get('matricula')" />
                 </div>
@@ -95,7 +95,7 @@
             <div class="col-12 col-md-3">
                 <div class="mb-3">
                     <label for="tipo" class="form-label">Tipo<span class="text-danger">*</span></label>
-                    <select class="form-control" required name="tipo" id="tipo">
+                    <select class="form-control shadow-sm" required name="tipo" id="tipo">
                         @foreach ($tipos as $tipo)
                             <option @if ($tipo == $coche->tipo) selected @endif value="{{ $tipo }}">
                                 {{ $tipo }}</option>
@@ -107,7 +107,7 @@
             <div class="col-12 col-md-3">
                 <div class="mb-3">
                     <label for="plazas" class="form-label">Plazas</label>
-                    <select class="form-control" name="plazas" id="plazas">
+                    <select class="form-control shadow-sm" name="plazas" id="plazas">
                         @foreach (range(1, 8) as $value)
                             <option @if ($coche->plazas == $value) selected @endif value="{{ $value }}">
                                 {{ $value }}</option>
@@ -119,22 +119,30 @@
             <div class="col-12 col-md-3">
                 <div class="mb-3">
                     <label for="color" class="form-label">Color</label>
-                    <input type="text" class="form-control" name="color" id="color" placeholder="">
+                    <input type="text" class="form-control shadow-sm" name="color" id="color" value="{{$coche->color }}" placeholder="">
                 </div>
                 <x-input-error class="mt-2" :messages="$errors->get('color')" />
             </div>
             <div class="col-12 col-md-3">
                 <div class="mb-3">
                     <label for="precio" class="form-label">Precio por día<span class="text-danger">*</span></label>
-                    <input type="number" min="1" class="form-control text-end" name="precio"
-                        id="precio" value="1">
+                    <input type="number" min="1" class="form-control shadow-sm text-end" name="precio"
+                        id="precio" value="1" value="{{$coche->precio}}">
                     <x-input-error class="mt-2" :messages="$errors->get('precio')" />
                 </div>
             </div>
-            <div class="col-12 col-md-3 text-center mt-2 mb-2">
+            <div class="col-12 col-md-3">
+                <div class="mb-3">
+                    <label for="km" class="form-label">Kilometraje</label>
+                    <input type="number" min="1"  class="form-control shadow-sm  text-end" name="km"
+                        id="km" value="{{$coche->km}}">
+                    <x-input-error class="mt-2" :messages="$errors->get('km')" />
+                </div>
+            </div>
+            <div class="col-12 col-md-7 text-center mt-2 mb-2">
                 <label class="form-label fs-5 " for="foto">Nueva Foto del Coche<span
                         class="text-danger">*</span></label><br>
-                <input class="text-center w-full" accept="image/*" type="file" name="foto"
+                <input class="text-center w-full border rounded shadow-sm" accept="image/*" type="file" name="foto"
                     id="foto">
                 <x-input-error class="mt-2" :messages="$errors->get('foto')"></x-input-error>
             </div>

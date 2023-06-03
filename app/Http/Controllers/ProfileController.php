@@ -27,6 +27,7 @@ class ProfileController extends Controller
     public function show($id)
     {
         $user = User::find($id);
+        if($user->activo)
         return view('profile.perfil', [
             'user' => $user,
         ]);

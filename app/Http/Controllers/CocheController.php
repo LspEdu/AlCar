@@ -109,6 +109,11 @@ class CocheController extends Controller
         ]);
     }
 
+    public function activoCoche($id) {
+
+    }
+
+
     public function update(Request $request, $id)
     {
         $request->validate([
@@ -131,7 +136,6 @@ class CocheController extends Controller
 
         $img = $coche->foto;
 
-
         $coche->update($request->all());
         $coche->setAttribute('validado', false);
         $request->file('foto')
@@ -147,7 +151,7 @@ class CocheController extends Controller
     public function destroy($id)
     {
         $coche = Coche::find($id);
-        $coche->delete();
+        $coche->activo = false;
         return redirect()->route('dashboard');
     }
 }

@@ -86,15 +86,15 @@
                             @endif
                         </div>
                     @endforeach
-                    @if (!$hasFactura)
-                        <h3 class="text-center">Parece ser que tus coches aún no han sido alquilados</h3>
-                    @endif
+
                 @empty
                     <h4 class="text-center">No tienes nigún coche. <br>Prueba a registrar uno <a
                             class="cursor-pointer p-0 link link-secondary" href="{{ route('coche.create') }}">aquí</a>
                     </h4>
                 @endforelse
-
+                @if (!$hasFactura)
+                <h3 class="text-center">Parece ser que tus coches aún no han sido alquilados</h3>
+            @endif
             </div>
 
         </div>

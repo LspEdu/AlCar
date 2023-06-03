@@ -1,8 +1,8 @@
-<x-app-layout>
+<x-admin-layout>
     @csrf
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Inicio') }}
+            {{ $user->name }}
         </h2>
     </x-slot>
 
@@ -11,10 +11,10 @@
             <div class="card mb-4 shadow">
                 <div class="card-body text-center row">
                     <div class="row mb-2">
-                        <img src="{{ asset(Auth::user()->avatar ?? '/storage/webo.jpg') }}" alt="avatar"
-                            class="rounded col-6" style="width: 150px;">
-                        <h5 class="my-3 col-6">{{ Auth::user()->name }} <br> {{ Auth::user()->ape1 }}
-                            {{ Auth::user()->ape2 }}</h5>
+                        <img src="{{ asset($user->avatar ?? 'storage/webo.jpg') }}" alt="avatar" class="rounded col-6"
+                            style="width: 150px;">
+                        <h5 class="my-3 col-6">{{ $user->name }} <br> {{ $user->ape1 }}
+                            {{ $user->ape2 }}</h5>
                     </div>
                     <hr>
                     <div class="row">
@@ -22,8 +22,7 @@
                             <p class="mb-0">Email</p>
                         </div>
                         <div class="col-sm-9">
-                            <a href="mailto:{{ Auth::user()->email }}"
-                                class="text-muted mb-0">{{ Auth::user()->email }}</a>
+                            <a href="mailto:{{ $user->email }}" class="text-muted mb-0">{{ $user->email }}</a>
                         </div>
                     </div>
                     <hr>
@@ -32,7 +31,16 @@
                             <p class="mb-0">Teléfono</p>
                         </div>
                         <div class="col-sm-9">
-                            <p class="text-muted mb-0">{{ Auth::user()->tlf }} </p>
+                            <p class="text-muted mb-0">{{ $user->tlf }} </p>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <p class="mb-0">Fecha de Nacimiento</p>
+                        </div>
+                        <div class="col-sm-9">
+                            <p class="text-muted mb-0">{{ $user->fechNac }} </p>
                         </div>
                     </div>
                     <hr>
@@ -41,20 +49,59 @@
                             <p class="mb-0">Dirección</p>
                         </div>
                         <div class="col-sm-9">
-                            <p class="text-muted mb-0">{{ Auth::user()->direccion ?? 'Desconocida' }}</p>
+                            <p class="text-muted mb-0">{{ $user->direccion ?? 'Desconocida' }}</p>
                         </div>
                     </div>
+                    <hr>
+                    @if ($user->activo)
+                    <div class="row">
+                        <div class="col ">
+                            <x-danger-button x-data="" x-on:click.prevent="$dispatch('open-modal', 'confirm-user-deletion')">
+                                Borrar Usuario
+                            </x-danger-button>
+                        </div>
+                    </div>
+                    @else
+                    <div class="row">
+                        <div class="col text-danger">
+                            <p>Este usuario ha sido eliminado</p>
+                        </div>
+                    </div>
+                    @endif
                 </div>
             </div>
         </div>
+        <x-modal name="confirm-user-deletion" :show="$errors->userDeletion->isNotEmpty()" focusable>
+            <form method="post" action="{{ route('admin.usuario-destroy', ['id' => $user->id ]) }}" class="p-6">
+                @csrf
+                @method('delete')
 
+                <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
+                    ¿Estás seguro de borrar este usuario?
+                </h2>
+
+                <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                   Debes avisar antes al usuario. Una vez borres este usuario, todos sus coches serán desvalidados y desactivados. Sus facturas seguirán teniendo constancia.
+                </p>
+
+                <div class="mt-6 flex justify-end">
+                    <x-secondary-button x-on:click="$dispatch('close')">
+                        {{ __('Cancelar') }}
+                    </x-secondary-button>
+
+                    <x-danger-button class="ml-3">
+                        {{ __('Borrar Cuenta') }}
+                    </x-danger-button>
+                </div>
+            </form>
+        </x-modal>
         <div class="col-lg-7">
             <div class="row gap-2">
                 <div class="col-12">
                     <div class="card mb-4 shadow mb-md-0">
                         <div class="card-body">
                             <div x-data="{
-                                items: {{ Auth::user()->coches }},
+                                items: {{ $user->coches }},
                                 currentPage: 1,
                                 pageSize: 5,
                                 getItems: function() {
@@ -110,21 +157,29 @@
                     </div>
                 </div>
                 <div class="col-12">
+                    @forelse ($user->facturas as $factura)
+                            @php($facturasDueño[] = $factura)
+                    @empty
+                            @php($facturasDueño = [])
+                    @endforelse
                     <div class="card mb-4 shadow mb-md-0">
                         <div class="card-body">
                             <p class="mb-4"><span class="text-gray-900 fs-3 font-italic me-1">Últimas facturas</span>
                             </p>
 
-                            @forelse (Auth::user()->facturas->sortByDesc('created_at')->take(5) as $factura)
-                                <a class="link link-secondary" target="_blank"
-                                    href="{{ route('factura.show', ['id' => $factura->id]) }}">Factura
-                                    {{ $factura->codigo }} | {{ $factura->coche->marca }}
-                                    {{ $factura->coche->modelo }} | {{ $factura->FechaInicio }} </a>
-                                <hr>
-                            @empty
-                                <h4 style="text-indent: 1em">¡No tienes facturas! ¿A qué esperas para alquilar?</h4>
+                             @forelse ($facturasDueño as $factura)
+                                @if ($loop->iteration <= 5)
+                                    <a class="link link-secondary" target="_blank"
+                                        href="{{ route('factura.show', ['id' => $factura->id]) }}">Factura
+                                        {{ $factura->codigo }} | {{ $factura->coche->marca }}
+                                        {{ $factura->coche->modelo }} | {{ $factura->FechaInicio }} </a>
+                                    @if (!$loop->last )
+                                        <hr>
+                                    @endif
+                                @endif
+                                @empty
+                                    <p>Este usuario no tiene facturas a su nombre</p>
                             @endforelse
-
                         </div>
                     </div>
                 </div>
@@ -132,4 +187,4 @@
         </div>
     </div>
     </div>
-</x-app-layout>
+</x-admin-layout>

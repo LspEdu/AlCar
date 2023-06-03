@@ -80,11 +80,11 @@
 
                             @foreach ($facturasDueño as $factura)
                                 @if ($loop->iteration <= 5)
-                                    <a class="link link-secondary"
+                                    <a class="link link-secondary" target="_blank"
                                         href="{{ route('factura.show', ['id' => $factura->id]) }}">Factura
                                         {{ $factura->codigo }} | {{ $factura->coche->marca }}
                                         {{ $factura->coche->modelo }} | {{ $factura->FechaInicio }} </a>
-                                    @if ($loop->iteration != 5)
+                                    @if (!$loop->last)
                                         <hr>
                                     @endif
                                 @endif

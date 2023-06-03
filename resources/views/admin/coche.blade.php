@@ -9,7 +9,7 @@
                 class="bg-danger btn" ><span class="material-symbols-outlined">
                     close
                     </span> @endif
-            </a>
+                </a>
         </h2>
     </x-slot>
     <div class="mt-4 mt-md-2 row gap-2 justify-content-around ms-1 me-1">
@@ -92,6 +92,9 @@
                         <p>Estado : {{ $coche->user->activo ? 'Activo' : 'Desactivado' }}</p>
                     </div>
                 </div>
+            </div>
+            <div class="col-12 mt-2 bg-white rounded text-center" >
+                <x-danger-button class="m-2" x-data=""  x-on:click.prevent="$dispatch('open-modal', 'confirm-coche-deletion')" >Borrar Coche</x-danger-button>
             </div>
         </div>
     </div>
@@ -177,5 +180,30 @@
         });
     </script>
 
+    <x-modal name="confirm-coche-deletion" :show="$errors->userDeletion->isNotEmpty()" focusable>
+        <form method="post" action="{{ route('admin.coche-destroy', ['id' => $coche->id]) }}" class="p-6">
+            @csrf
+            @method('delete')
 
+            <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
+                ¿Estás seguro de borrar este coche?
+            </h2>
+
+            <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                Debes avisar antes al usuario. Una vez borres este coche estará desactivado, dejándo de estar disponible para su alquiler. Sus facturas seguirán teniendo constancia.
+            </p>
+
+
+
+            <div class="mt-6 flex justify-end">
+                <x-secondary-button x-on:click="$dispatch('close')">
+                    {{ __('Cancelar') }}
+                </x-secondary-button>
+
+                <x-danger-button class="ml-3">
+                    {{ __('Confirmar') }}
+                </x-danger-button>
+            </div>
+        </form>
+    </x-modal>
 </x-admin-layout>

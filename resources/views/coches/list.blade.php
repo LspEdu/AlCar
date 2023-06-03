@@ -118,7 +118,7 @@
             <button class="btn btn-secondary" @click="nextPage" x-show="totalPages > 0" :disabled="currentPage === totalPages">Siguiente</button>
           </div>
       </div>
-        <div class="row row-cols-1 row-cols-md-3 mt-3 row-cols-lg-4 gap-1 justify-content-md-around justify-content-center">
+        <div class="row row-cols-1 row-cols-md-3 mt-3 row-cols-lg-4 gap-4 justify-content-center">
           <template x-for="coche in paginatedCoches" :key="coche.id">
             <div class="col-11 card col-sm-5 col-lg-3 mt-1" >
               <img :src="'{{ asset('') }}' + coche.foto" class="card-img-top w-100 mt-1 rounded shadow-sm cursor-pointer hover-zoom " style="height: 11em" alt="fotoCoche" />

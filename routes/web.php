@@ -4,6 +4,8 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CocheController;
 use App\Http\Controllers\FacturaController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\StripeController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -28,6 +30,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+    Route::get('/payment', [StripeController::class, 'pagos'])->name('metodos');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::post('/profile', [ProfileController::class, 'avatar'])->name('profile.avatar');
@@ -43,6 +46,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/coche/{id}/edit', [CocheController::class, 'edit'])->name('coche.edit');
     Route::post('/coche/{id}/edit', [CocheController::class, 'update'])->name('coche.update');
     Route::delete('/coche/{id}/destroy', [CocheController::class, 'destroy'])->name('coche.delete');
+
     Route::post('/coche/{id}/alquilar', [FacturaController::class, 'alquilar'])->name('coche.alquilar');
 });
 

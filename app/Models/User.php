@@ -8,10 +8,12 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Laravel\Cashier\Billable;
+use function Illuminate\Events\queueable;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, Billable;
 
     /**
      * The attributes that are mass assignable.
@@ -28,7 +30,8 @@ class User extends Authenticatable
         'email',
         'password',
         'avatar',
-        'activo'
+        'activo',
+        'stripeToken',
     ];
 
     private string $rol;
@@ -53,6 +56,20 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+
+    /**
+     * The "booted" method of the model.
+     *
+     * @return void
+     */
+    protected static function booted()
+    {
+        static::updated(queueable(function ($customer) {
+            if ($customer->hasStripeId()) {
+                $customer->syncStripeCustomerDetails();
+            }
+        }));
+    }
 
     public function setAvatar(string $avatar)
     {
@@ -87,5 +104,11 @@ class User extends Authenticatable
     public function getRol()
     {
         return $this->rol;
+    }
+
+    public function primerMetodoPago() {
+        $metodos = $this->paymentMethods();
+        $primero = $metodos[0] ?? '';
+        return $primero;
     }
 }

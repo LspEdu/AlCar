@@ -46,6 +46,15 @@
                     </div>
                 </div>
             </div>
+            <div class="col-12 bg-white rounded text-center p-2">
+                @if (!Auth::user()->primerMetodoPago())
+                <h3 class="text-danger">Aún no has añadido ningún método de pago. Para alquilar es necesario que añadas uno</h3>
+                @else
+                <h3>Editar métodos de pago</h3>
+                @endif
+                <hr>
+                <a class="btn btn-primary" href="{{route('metodos')}}">Métodos de Pago</a>
+            </div>
         </div>
 
         <div class="col-lg-7">
@@ -120,7 +129,7 @@
                                     href="{{ route('factura.show', ['id' => $factura->id]) }}">Factura
                                     {{ $factura->codigo }} | {{ $factura->coche->marca }}
                                     {{ $factura->coche->modelo }} | {{ $factura->FechaInicio }} </a>
-                                <hr>
+                                @if(!$loop->last)<hr>@endif
                             @empty
                                 <h4 style="text-indent: 1em">¡No tienes facturas! ¿A qué esperas para alquilar?</h4>
                             @endforelse

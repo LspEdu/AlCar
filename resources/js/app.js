@@ -8,4 +8,3 @@ import flatpickr from "flatpickr";
 window.Alpine = Alpine;
 
 Alpine.start();
-

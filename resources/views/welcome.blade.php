@@ -449,6 +449,9 @@
             <!-- Copyright -->
         </footer>
     </main>
+    <script>
+        localStorage.removeItem("UltimoCoche")
+    </script>
 </body>
 
 </html>

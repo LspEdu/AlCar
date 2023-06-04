@@ -46,14 +46,18 @@
                     </div>
                 </div>
             </div>
-            <div class="col-12 bg-white rounded text-center p-2">
+            <div class="col-12 bg-white rounded text-center p-2 mb-4">
                 @if (!Auth::user()->primerMetodoPago())
-                <h3 class="text-danger">Aún no has añadido ningún método de pago. Para alquilar es necesario que añadas uno</h3>
+                    <h3 class="text-danger">Aún no has añadido ningún método de pago. Para alquilar es necesario que
+                        añadas uno o tendrás que pagar en efectivo</h3>
                 @else
-                <h3>Editar métodos de pago</h3>
+                    <h3>Editar métodos de pago</h3>
                 @endif
                 <hr>
-                <a class="btn btn-primary" href="{{route('metodos')}}">Métodos de Pago</a>
+                <a class="btn btn-primary" href="{{ route('metodos') }}">Métodos de Pago</a>
+            </div>
+
+            <div class="hidden w-fit justify-items-center  bg-white rounded text-center " id="last">
             </div>
         </div>
 
@@ -123,13 +127,14 @@
                         <div class="card-body">
                             <p class="mb-4"><span class="text-gray-900 fs-3 font-italic me-1">Últimas facturas</span>
                             </p>
-
                             @forelse (Auth::user()->facturas->sortByDesc('created_at')->take(5) as $factura)
                                 <a class="link link-secondary" target="_blank"
                                     href="{{ route('factura.show', ['id' => $factura->id]) }}">Factura
                                     {{ $factura->codigo }} | {{ $factura->coche->marca }}
                                     {{ $factura->coche->modelo }} | {{ $factura->FechaInicio }} </a>
-                                @if(!$loop->last)<hr>@endif
+                                @if (!$loop->last)
+                                    <hr>
+                                @endif
                             @empty
                                 <h4 style="text-indent: 1em">¡No tienes facturas! ¿A qué esperas para alquilar?</h4>
                             @endforelse
@@ -140,5 +145,24 @@
             </div>
         </div>
     </div>
-    </div>
+
+    <script>
+        let local = localStorage.getItem('UltimoCoche'),
+            last = document.getElementById('last');
+
+            if(local){
+                last.style.display = 'flex';
+                let enlace = document.createElement('a');
+                enlace.href = "{{ route('coche.index') }}/" + local;
+                enlace.textContent = 'Continúa desde donde lo dejaste';
+                enlace.classList.add("btn");
+                enlace.classList.add("btn-outline-secondary");
+                enlace.classList.add("fs-3");
+                enlace.classList.add("justify-self-center");
+                last.appendChild(enlace);
+            }
+
+
+    </script>
+
 </x-app-layout>

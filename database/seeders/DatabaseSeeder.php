@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
              'email' => 'millonarioLoco@paypal.com',
              'rol' => 'user',
              'password' => Hash::make('testtest'),
+             'avatar' => 'storage/coches/Factory/3712JKL/elon.webp'
          ]);
 
          $user->coches()->create([
@@ -40,8 +41,8 @@ class DatabaseSeeder extends Seeder
             'cilindrada' => null,
             'color' => null,
             'plazas' => 5,
-            'lat' => '36.76634',
-            'lng' => '-6.34079',
+            'lat' => '36.78837',
+            'lng' => '-6.34084',
             'foto' => 'storage/coches/Factory/3712JKL/audiA7.png',
             'validado' => true,
          ]);
@@ -58,8 +59,8 @@ class DatabaseSeeder extends Seeder
             'cilindrada' => null,
             'color' => null,
             'plazas' => 2,
-            'lat' => '36.76634',
-            'lng' => '-6.34079',
+            'lat' => '36.78837',
+            'lng' => '-6.34084',
             'foto' => 'storage/coches/Factory/4729JLU/corvetteStingray.png',
             'validado' => true,
          ]);
@@ -76,8 +77,8 @@ class DatabaseSeeder extends Seeder
             'cilindrada' => null,
             'color' => null,
             'plazas' => 5,
-            'lat' => '36.76634',
-            'lng' => '-6.34079',
+            'lat' => '36.78837',
+            'lng' => '-6.34084',
             'foto' => 'storage/coches/Factory/3698MLS/mclaren540c.jpeg',
             'validado' => true,
          ]);
@@ -94,8 +95,8 @@ class DatabaseSeeder extends Seeder
             'cilindrada' => null,
             'color' => null,
             'plazas' => 5,
-            'lat' => '36.76634',
-            'lng' => '-6.34079',
+            'lat' => '36.78837',
+            'lng' => '-6.34084',
             'foto' => 'storage/coches/Factory/3945LSP/porschePanamera.png',
             'validado' => true,
          ]);
@@ -112,8 +113,8 @@ class DatabaseSeeder extends Seeder
             'cilindrada' => null,
             'color' => null,
             'plazas' => 5,
-            'lat' => '36.76634',
-            'lng' => '-6.34079',
+            'lat' => '36.78837',
+            'lng' => '-6.34084',
             'foto' => 'storage/coches/Factory/5423LSJ/shelbyMustang.jpg',
             'validado' => true,
          ]);

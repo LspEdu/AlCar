@@ -22,11 +22,17 @@ class FacturaController extends Controller
     public function show($id)
     {
         $factura = Factura::find($id);
+        $json = file_get_contents("https://maps.googleapis.com/maps/api/geocode/json?latlng=".$factura->lat.",".$factura->lng."&key=".env('GOOGLE_MAP_KEY'));
+        $sitio = json_decode($json);
+
+
+
         $data = [
             'factura' => $factura,
             'titulo' => 'Factura_' . $factura->codigo,
             'hoy' => new \DateTime(),
             'dias' => 2,
+            'sitio' => $sitio,
         ];
 
         $pdf = Pdf::loadView('factura.pdf', $data);

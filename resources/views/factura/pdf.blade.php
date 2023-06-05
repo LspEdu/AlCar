@@ -71,8 +71,7 @@
 
         .importe {
             width: 100%;
-
-            padding-top: 2em;
+            padding-top: 1em;
         }
 
         .importe td {
@@ -136,7 +135,7 @@
                             </tr>
                             <tr>
                                 <td>Método de Pago Usado</td>
-                                <td>{{$factura->metodoPago}}</td>
+                                <td>{{ $factura->metodoPago }}</td>
                             </tr>
                         </table>
                     </td>
@@ -233,7 +232,8 @@
                 <tr>
                     <td>
                         <b>Ubicación del Coche</b>
-                        <img src="{{ public_path() }}/build/assets/img/maps.png" style="width: 12em" alt="">
+                        <p>{{$sitio->results[0]->formatted_address}}</p>
+                        <img src="https://maps.googleapis.com/maps/api/staticmap?center={{$factura->lat}},{{$factura->lng}}&zoom=15&size=400x400&markers=color:red%7Clabel:{{$factura->coche->matricula}}%7C{{$factura->lat}},{{$factura->lng}}&key={{ env('GOOGLE_MAP_KEY') }}"" style="width: 12em" alt="">
                     </td>
                 </tr>
             </table>
@@ -246,7 +246,7 @@
                     <td>Fecha de Inicio</td>
                     <td>{{ $factura->FechaInicio }}</td>
                     <td>Días Totales</td>
-                    <td class="end">{{ $dias }}</td>
+                    <td class="end">{{ $factura->dias }}</td>
                 </tr>
                 <tr>
                     <td>Fecha de Fin</td>
@@ -296,7 +296,7 @@
         </footer>
     </div>
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=TU_API_KEY"></script>
+    {{-- <script src="https://maps.googleapis.com/maps/api/js?key=TU_API_KEY"></script>
     <script>
         function initMap() {
             // Coordenadas del lugar que deseas mostrar en el mapa
@@ -323,7 +323,7 @@
         window.addEventListener('load', function() {
             initMap();
         });
-    </script>
+    </script> --}}
 </body>
 
 </html>

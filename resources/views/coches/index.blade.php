@@ -28,7 +28,7 @@
         @endif
     </x-slot>
     <div class="mt-4 mt-md-2 row gap-2 justify-content-around ms-1 me-1">
-        <div class="col-12 col-md-6 bg-white rounded shadow">
+        <div class="col-12 col-lg-6 bg-white rounded shadow">
             <div class="card mt-2 border-0">
                 <h2 class="card-title m-2 fw-bold ">{{ $coche->marca }} {{ $coche->modelo }}@if (Auth::user()->id == $coche->user_id)
                         <a class="align-middle mb-5 mt-2 fs-4"
@@ -99,50 +99,85 @@
                 </div>
             </div>
         </div>
-        <form method="POST" x-data="{ pago: 'efectivo' }" class="col-12 col-md-4 bg-white rounded h-fit shadow"
-            action="{{ route('coche.alquilar', ['id' => $coche->id]) }}">
-            @csrf
-            <div class="row mt-3 justify-content-around">
-                <div class="col-12 col-md-5">
-                    <label class="form-label fs-5 fw-bold" for="fechaInicio">Fecha Inicio </label>
-                    <input class="form-control" required type="date" name="fechaInicio" id="fechaInicio">
-                    <x-input-error class="mt-2" :messages="$errors->get('fechaInicio')" />
-                </div>
-                <div class="col-12 col-md-5">
-                    <label class="form-label fs-5 fw-bold" for="fechaFin">Fecha Fin </label>
-                    <input class="form-control" required type="date" name="fechaFin" id="fechaFin">
-                    <x-input-error class="mt-2" :messages="$errors->get('fechaFin')" />
-                </div>
+        <div class="col-12 col-lg-4 row flex-col gap-1">
 
+            <div class="col-12  bg-white rounded h-fit shadow">
+
+
+                <form method="POST" x-data="{ pago: 'efectivo' }"
+                    action="{{ route('coche.alquilar', ['id' => $coche->id]) }}">
+                    @csrf
+                    <div class="row mt-3 justify-content-around">
+                        <div class="col-12 col-lg-5">
+                            <label class="form-label fs-5 fw-bold" for="fechaInicio">Fecha Inicio </label>
+                            <input class="form-control" required type="date" name="fechaInicio" id="fechaInicio">
+                            <x-input-error class="mt-2" :messages="$errors->get('fechaInicio')" />
+                        </div>
+                        <div class="col-12 col-lg-5">
+                            <label class="form-label fs-5 fw-bold" for="fechaFin">Fecha Fin </label>
+                            <input class="form-control" required type="date" name="fechaFin" id="fechaFin">
+                            <x-input-error class="mt-2" :messages="$errors->get('fechaFin')" />
+                        </div>
+
+                    </div>
+                    <hr>
+                    <div class="row p-2">
+                        <label for="pago" class="col-12 fs-4">¿Cómo deseas pagar?</label>
+                        <select x-model="pago" name="pago" id="pago" class="form-select  m-2 w-50  ">
+                            <option selected value="efectivo">Efectivo</option>
+                            @foreach (Auth::user()->paymentMethods() as $metodo)
+                                <option value="{{ $metodo->card->last4 }}">Tarjeta - {{ $metodo->card->last4 }}
+                                </option>
+                            @endforeach
+                        </select>
+
+
+
+                        <div class="col-12 pt-1 justify-content-around">
+                            <h4>Coste total </h4>
+                            <input type="submit" @if (Auth::user()->id == $coche->user_id) disabled @endif value="Alquilar"
+                                class="btn btn-outline-success w-25 h-50 mb-2 mt-2">
+                            <input type="text" id="precio"
+                                class="form-input col-6 text-right m-2 border-2 mb-2  focus-outline-success rounded bg-slate-200 text-success fw-bolder fs-4"
+                                value=" {{ $coche->precio }}€" readonly>
+                        </div>
+                    </div>
+                </form>
             </div>
-            <hr>
-            <div class="row p-2">
-                <p class="col-12 fs-4 pt-3">¿Cómo deseas pagar?</p>
-                <select x-model="pago" name="pago" id="pago" class="form-select mt-3 m-2 w-50  ">
-                    <option selected value="efectivo">Efectivo</option>
-                    @foreach (Auth::user()->paymentMethods() as $metodo)
-                        <option value="{{$metodo->card->last4}}">Tarjeta - {{$metodo->card->last4}}</option>
-                    @endforeach
-                </select>
-
-
-
-                <div class="col-12">
-                    <h4>Coste total </h4>
-                </div>
-                <input type="submit" @if (Auth::user()->id == $coche->user_id) disabled @endif value="Alquilar"
-                    class="btn btn-outline-success w-25 mb-5 mt-2">
-                <input type="text" id="precio"
-                    class="form-input col-6 text-right m-2 border-2 mb-5  focus-outline-success rounded bg-slate-200 text-success fw-bolder fs-4"
-                    value=" {{ $coche->precio }}€" readonly>
+            <div class="col-12 bg-white rounded h-fit shadow">
+                <h3 class="text-center">Ubicación de recogida del coche</h3>
+                <div id="map" class="shadow pb-2"></div>
             </div>
-        </form>
+
+        </div>
+
     </div>
-    <script type="text/javascript" src="https://js.stripe.com/v3/"></script>
     <script>
+        function initMap() {
+            const myLatLng = {
+                lat: {{ $coche->lat }},
+                lng: {{ $coche->lng }}
+            };
+            const map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 15,
+                center: myLatLng,
+            });
+
+            new google.maps.Marker({
+                position: myLatLng,
+                map,
+                title: "Aquí se encuentra el coche",
+            });
 
 
+
+        }
+
+        window.initMap = initMap;
     </script>
+    <script type="text/javascript"
+        src="https://maps.google.com/maps/api/js?key={{ env('GOOGLE_MAP_KEY') }}&callback=initMap&v=weekly"></script>
+
     <script defer>
         let fin,
             precio = {{ $coche->precio }};
@@ -151,7 +186,7 @@
 
 
         document.addEventListener('DOMContentLoaded', function() {
-            localStorage.setItem('UltimoCoche', "{{$coche->id}}")
+            localStorage.setItem('UltimoCoche', "{{ $coche->id }}")
 
             const fechaInicioPicker = flatpickr('#fechaInicio', {
                 dateFormat: "Y-m-d",

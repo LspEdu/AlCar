@@ -145,7 +145,7 @@
                 </form>
             </div>
             <div class="col-12 bg-white rounded h-fit shadow">
-                <h3 class="text-center">Ubicación de recogida del coche</h3>
+                <h3 class="text-center pt-2">Ubicación de recogida del coche</h3>
                 <div id="map" class="shadow pb-2"></div>
             </div>
 
@@ -168,9 +168,6 @@
                 map,
                 title: "Aquí se encuentra el coche",
             });
-
-
-
         }
 
         window.initMap = initMap;

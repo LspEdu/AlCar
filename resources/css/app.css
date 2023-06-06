@@ -119,7 +119,19 @@ body {
     color: white;
 }
 
+.coche-card {
+    transition: 0.3s;
+}
+.coche-card:hover{
+    transform: scale(1.1);
+}
 
+.coche {
+
+    aspect-ratio: 1/0.5 ;
+    object-fit:contain;
+
+}
 
 main {
     z-index: 1;

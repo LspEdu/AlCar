@@ -120,8 +120,8 @@
       </div>
         <div class="row row-cols-1 row-cols-md-3 mt-3 row-cols-lg-4 gap-4 justify-content-center">
           <template x-for="coche in paginatedCoches" :key="coche.id">
-            <div class="col-11 card col-sm-5 col-lg-3 mt-1" >
-              <img :src="'{{ asset('') }}' + coche.foto" class="card-img-top w-100 mt-1 rounded shadow-sm cursor-pointer hover-zoom " style="height: 11em" alt="fotoCoche" />
+            <div class="col-11 card col-sm-5 col-lg-3 mt-1 coche-card shadow" >
+              <img :src="'{{ asset('') }}' + coche.foto" class="coche card-img-top w-100 mt-1 rounded shadow-sm cursor-pointer hover-zoom " style="" alt="fotoCoche" />
               <div class="card-body">
                 <h3 class="card-title" x-text="coche.marca + ' ' + coche.modelo"></h3>
                 <div class="card-text">

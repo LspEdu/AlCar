@@ -295,35 +295,6 @@
             cliente.
         </footer>
     </div>
-
-    {{-- <script src="https://maps.googleapis.com/maps/api/js?key=TU_API_KEY"></script>
-    <script>
-        function initMap() {
-            // Coordenadas del lugar que deseas mostrar en el mapa
-            var location = {
-                lat: 40.712776,
-                lng: -74.005974
-            };
-
-            // Crea el mapa y lo muestra en el contenedor con el ID 'map'
-            var map = new google.maps.Map(document.getElementById('map'), {
-                center: location,
-                zoom: 12
-            });
-
-            // Crea un marcador en la ubicación especificada
-            var marker = new google.maps.Marker({
-                position: location,
-                map: map,
-                title: 'Ubicación'
-            });
-        }
-
-        // Carga el mapa una vez que la página esté completamente cargada
-        window.addEventListener('load', function() {
-            initMap();
-        });
-    </script> --}}
 </body>
 
 </html>

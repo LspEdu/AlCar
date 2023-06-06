@@ -25,7 +25,7 @@ class DatabaseSeeder extends Seeder
              'email' => 'millonarioLoco@paypal.com',
              'rol' => 'user',
              'password' => Hash::make('testtest'),
-             'avatar' => 'storage/coches/Factory/3712JKL/elon.webp'
+             'avatar' => 'storage/coches/Factory/elon.webp'
          ]);
 
          $user->coches()->create([

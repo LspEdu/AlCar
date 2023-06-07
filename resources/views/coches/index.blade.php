@@ -123,7 +123,7 @@
                     <hr>
                     <div class="row p-2">
                         <label for="pago" class="col-12 fs-4">¿Cómo deseas pagar?</label>
-                        <select x-model="pago" name="pago" id="pago" class="form-select  m-2 w-50  ">
+                        <select x-model="pago" name="pago" id="pago" class="form-select c m-2 w-50  ">
                             <option selected value="efectivo">Efectivo</option>
                             @foreach (Auth::user()->paymentMethods() as $metodo)
                                 <option value="{{ $metodo->card->last4 }}">Tarjeta - {{ $metodo->card->last4 }}
@@ -145,7 +145,7 @@
                 </form>
             </div>
             <div class="col-12 bg-white rounded h-fit shadow">
-                <h3 class="text-center pt-2">Ubicación de recogida del coche</h3>
+                <h3 class="text-center">Ubicación de recogida del coche</h3>
                 <div id="map" class="shadow pb-2"></div>
             </div>
 
@@ -168,6 +168,9 @@
                 map,
                 title: "Aquí se encuentra el coche",
             });
+
+
+
         }
 
         window.initMap = initMap;
@@ -183,7 +186,8 @@
 
 
         document.addEventListener('DOMContentLoaded', function() {
-            localStorage.setItem('UltimoCoche', "{{ $coche->id }}")
+            localStorage.setItem('UltimoCoche', "{{ $coche->id }}");
+            document.cookie= 'UltimoCoche='+{{$coche->id}} + ';path=/';
 
             const fechaInicioPicker = flatpickr('#fechaInicio', {
                 dateFormat: "Y-m-d",

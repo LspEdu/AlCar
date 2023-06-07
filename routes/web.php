@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+
     return view('welcome');
 })->name('index');
 
@@ -43,6 +44,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/coche/create', [CocheController::class , 'create'])->name('coche.create');
     Route::post('/coche/create', [CocheController::class, 'store'])->name('coche.store');
     Route::get('/coche/{id}', [CocheController::class, 'show'])->name('coche.show');
+    Route::get('/coche/{id}/json', [CocheController::class, 'json'])->name('coche.json');
     Route::get('/coche/{id}/edit', [CocheController::class, 'edit'])->name('coche.edit');
     Route::post('/coche/{id}/edit', [CocheController::class, 'update'])->name('coche.update');
     Route::delete('/coche/{id}/destroy', [CocheController::class, 'destroy'])->name('coche.delete');

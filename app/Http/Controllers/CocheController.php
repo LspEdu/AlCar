@@ -95,6 +95,15 @@ class CocheController extends Controller
 
     }
 
+    public function json($id)
+    {
+
+        $coche = Coche::find($id);
+        return response()->json($coche);
+
+    }
+
+
     /**
      * Vista para editar el coche si eres dueño
      *

@@ -62,9 +62,9 @@
         </div>
 
         <div class="col-lg-7">
-            <div class="row gap-2">
+            <div class="row gap-4">
                 <div class="col-12">
-                    <div class="card mb-4 shadow mb-md-0">
+                    <div class="card shadow mb-md-0">
                         <div class="card-body">
                             <div x-data="{
                                 items: {{ Auth::user()->coches }},
@@ -123,7 +123,7 @@
                     </div>
                 </div>
                 <div class="col-12">
-                    <div class="card mb-4 shadow mb-md-0">
+                    <div class="card mb-2 shadow mb-md-0">
                         <div class="card-body">
                             <p class="mb-4"><span class="text-gray-900 fs-3 font-italic me-1">Últimas facturas</span>
                             </p>

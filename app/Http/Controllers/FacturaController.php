@@ -13,8 +13,10 @@ class FacturaController extends Controller
 
     public function index(Request $request)
     {
+        $facturas = $request->user()->facturas()->whereNotNull('user_id')->get();
+
         return view('factura.index', [
-            'facturas' => $request->user()->facturas,
+            'facturas' => $facturas,
             'hasFactura' => false,
         ]);
     }
@@ -22,6 +24,7 @@ class FacturaController extends Controller
     public function show($id)
     {
         $factura = Factura::find($id);
+        if(!$factura->user) abort(403);
         $json = file_get_contents("https://maps.googleapis.com/maps/api/geocode/json?latlng=" . $factura->lat . "," . $factura->lng . "&key=" . env('GOOGLE_MAP_KEY'));
         $sitio = json_decode($json);
 

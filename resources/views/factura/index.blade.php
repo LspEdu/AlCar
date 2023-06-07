@@ -54,7 +54,7 @@
             <div class="col-11 text-sm mh-50 max-h-[40rem] md:text-base mb-2 overflow-y-auto justify-around">
 
                 @forelse (Auth::user()->coches as $coche) {{-- Cada coche del usuario --}}
-                    @foreach ($coche->facturas as $factura)
+                    @foreach ($coche->facturas->whereNotNull('user_id') as $factura)
                         @php
                             $hasFactura = true;
                         @endphp

@@ -104,7 +104,7 @@ form.addEventListener('submit', (e) => {
 
 
 
-    if (!errores) form.submit();
+    if (errores === false ) form.submit();
 
 });
 

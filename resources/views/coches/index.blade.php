@@ -105,8 +105,9 @@
 
 
                 <form method="POST" x-data="{ pago: 'efectivo' }"
-                    action="{{ route('coche.alquilar', ['id' => $coche->id]) }}">
+                    action=" @if (Auth::user()->id == $coche->user_id) {{route('coche.reservar', ['id' => $coche->id])}} @else {{ route('coche.alquilar', ['id' => $coche->id]) }}@endif">
                     @csrf
+
                     <div class="row mt-3 justify-content-around">
                         <div class="col-12 col-lg-5">
                             <label class="form-label fs-5 fw-bold" for="fechaInicio">Fecha Inicio </label>
@@ -122,20 +123,20 @@
                     </div>
                     <hr>
                     <div class="row p-2">
+                        @if (Auth::user()->id != $coche->user_id)
                         <label for="pago" class="col-12 fs-4">¿Cómo deseas pagar?</label>
                         <select x-model="pago" name="pago" id="pago" class="form-select c m-2 w-50  ">
                             <option selected value="efectivo">Efectivo</option>
                             @foreach (Auth::user()->paymentMethods() as $metodo)
-                                <option value="{{ $metodo->card->last4 }}">Tarjeta - {{ $metodo->card->last4 }}
-                                </option>
+                            <option value="{{ $metodo->card->last4 }}">Tarjeta - {{ $metodo->card->last4 }}
+                            </option>
                             @endforeach
                         </select>
-
-
+                        @endif
 
                         <div class="col-12 pt-1 justify-content-around">
                             <h4>Coste total </h4>
-                            <input type="submit" @if (Auth::user()->id == $coche->user_id) disabled @endif value="Alquilar"
+                            <input type="submit" value="@if (Auth::user()->id == $coche->user_id) Reservar @else Alquilar @endif "
                                 class="btn btn-outline-success w-25 h-50 mb-2 mt-2">
                             <input type="text" id="precio"
                                 class="form-input col-6 text-right m-2 border-2 mb-2  focus-outline-success rounded bg-slate-200 text-success fw-bolder fs-4"
@@ -168,9 +169,6 @@
                 map,
                 title: "Aquí se encuentra el coche",
             });
-
-
-
         }
 
         window.initMap = initMap;

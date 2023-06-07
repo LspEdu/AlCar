@@ -48,7 +48,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/coche/{id}/edit', [CocheController::class, 'edit'])->name('coche.edit');
     Route::post('/coche/{id}/edit', [CocheController::class, 'update'])->name('coche.update');
     Route::delete('/coche/{id}/destroy', [CocheController::class, 'destroy'])->name('coche.delete');
-
+    Route::post('/coche/{id}/reservar', [FacturaController::class, 'reservar'])->name('coche.reservar');
     Route::post('/coche/{id}/alquilar', [FacturaController::class, 'alquilar'])->name('coche.alquilar');
 });
 

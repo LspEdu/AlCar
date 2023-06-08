@@ -43,6 +43,21 @@ class FacturaController extends Controller
     }
 
 
+    public function destroy($codigo, Request $request)
+    {
+        $factura = Factura::where('codigo', $codigo)->get()[0];
+        if($factura->coche->user_id == $request->user()->id){
+            try{
+                $factura->delete();
+                return redirect()->back()->with('Success', 'Días cancelados correctamente');
+            }catch(\Exception $e){
+                throw $e->getMessage();
+            }
+        }else{
+            return redirect()->back();
+        };
+    }
+
 
 
     public function reservar($id, Request $request)

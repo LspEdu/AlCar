@@ -10,22 +10,20 @@
                 <div class="bg-success rounded">
 
                     <p class=" text-white fs-4 bg-success rounded  align-middle">
-                        <span class="material-symbols-outlined">
-                            check_circle
-                        </span>
+
                         ¡Está todo correcto! Si cambias algún dato, deberás esperar de nuevo una validación.
                     </p>
                 </div>
             @else
                 <div class="bg-warning rounded">
                     <p class="ms-2 text-white fs-4  rounded  align-middle">
-                        <span class="material-symbols-outlined fs-1">report</span>
                         ¡Perfecto!, Ahora toca esperar a que un administrador
                         valide tu coche!
                     </p>
                 </div>
             @endif
         @endif
+
     </x-slot>
     <div class="mt-4 mt-md-2 row gap-3 justify-content-evenly ">
         <div class="col-12 col-lg-6 bg-white rounded shadow">
@@ -134,7 +132,6 @@
                                     </option>
                                 @endforeach
                             </select>
-
                         @endif
                         <div class="col-12 pt-1 justify-content-around">
                             @if (Auth::user()->id != $coche->user_id)
@@ -157,7 +154,38 @@
                 <hr>
                 <div id="map" class="shadow pb-2 rounded"></div>
             </div>
-
+            @if (Auth::user()->id == $coche->user_id)
+            <div class="col-12 card bg-white rounded p-2 overflow-y-auto h-fit shadow">
+                <h3 class="card-title text-center pt-2">Días reservados para ti</h3>
+                <div class="card-body overflow-y-auto max-h-72">
+                    <table class="table table-responsive table-hover overflow-y-auto text-center">
+                        <thead class="sticky">
+                            <tr>
+                                <th>Día Inicio</th>
+                                <th>Día Fin</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse ($coche->facturas()->whereNull('user_id')->get() as $factura)
+                                <tr>
+                                    <td>{{$factura->FechaInicio}}</td>
+                                    <td>{{$factura->FechaFin}}</td>
+                                    <form method="POST" action="{{route('factura.cancelar', ['codigo' => $factura->codigo])}}" >
+                                        @csrf
+                                        <td><x-danger-button>Cancelar</x-danger-button></td>
+                                    </form>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="3" class="font-bold">No has reservado ningún día</td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            @endif
         </div>
 
     </div>

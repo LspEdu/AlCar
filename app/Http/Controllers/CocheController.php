@@ -24,6 +24,7 @@ class CocheController extends Controller
     {
         $coches = Coche::where('validado', true)->where('activo',true)->get();
 
+
         return view('coches.list', [ // TODO THINK ABOUT NAMES
             'coches' => $coches,
             'tipos' => Coche::TIPOS,
@@ -86,6 +87,7 @@ class CocheController extends Controller
      */
     public function show($id)
     {
+
 
         $coche = Coche::find($id);
 

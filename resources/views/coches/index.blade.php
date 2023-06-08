@@ -27,7 +27,7 @@
             @endif
         @endif
     </x-slot>
-    <div class="mt-4 mt-md-2 row gap-2 justify-content-around ms-1 me-1">
+    <div class="mt-4 mt-md-2 row gap-3 justify-content-evenly ">
         <div class="col-12 col-lg-6 bg-white rounded shadow">
             <div class="card mt-2 border-0">
                 <h2 class="card-title m-2 fw-bold ">{{ $coche->marca }} {{ $coche->modelo }}@if (Auth::user()->id == $coche->user_id)
@@ -62,7 +62,7 @@
                                 </tr>
                                 <tr class="">
                                     <td scope="row" class="fw-bold">Año de Matriculación</td>
-                                    <td class="text-end">{{ $coche->ano }}</td>
+                                    <td class="text-end">{{ $coche->ano ?? 'Desconocido' }}</td>
                                 </tr>
                                 <tr class="">
                                     <td scope="row" class="fw-bold">Matrícula</td>
@@ -95,20 +95,22 @@
                             </tbody>
                         </table>
                     </div>
-
+                    <div class="card-footer border-top-0 text-center">
+                        <x-danger-button x-data=""  x-on:click.prevent="$dispatch('open-modal', 'confirm-coche-deletion')">Eliminar Coche</x-danger-button>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-12 col-lg-4 row flex-col gap-1">
+        <div class="col-12 col-lg-4 row flex-col p-0 gap-3">
 
             <div class="col-12  bg-white rounded h-fit shadow">
 
 
                 <form method="POST" x-data="{ pago: 'efectivo' }"
-                    action=" @if (Auth::user()->id == $coche->user_id) {{route('coche.reservar', ['id' => $coche->id])}} @else {{ route('coche.alquilar', ['id' => $coche->id]) }}@endif">
+                    action=" @if (Auth::user()->id == $coche->user_id) {{ route('coche.reservar', ['id' => $coche->id]) }} @else {{ route('coche.alquilar', ['id' => $coche->id]) }} @endif">
                     @csrf
 
-                    <div class="row mt-3 justify-content-around">
+                    <div class="row mt-3 justify-content-center p-2">
                         <div class="col-12 col-lg-5">
                             <label class="form-label fs-5 fw-bold" for="fechaInicio">Fecha Inicio </label>
                             <input class="form-control" required type="date" name="fechaInicio" id="fechaInicio">
@@ -124,30 +126,36 @@
                     <hr>
                     <div class="row p-2">
                         @if (Auth::user()->id != $coche->user_id)
-                        <label for="pago" class="col-12 fs-4">¿Cómo deseas pagar?</label>
-                        <select x-model="pago" name="pago" id="pago" class="form-select c m-2 w-50  ">
-                            <option selected value="efectivo">Efectivo</option>
-                            @foreach (Auth::user()->paymentMethods() as $metodo)
-                            <option value="{{ $metodo->card->last4 }}">Tarjeta - {{ $metodo->card->last4 }}
-                            </option>
-                            @endforeach
-                        </select>
-                        @endif
+                            <label for="pago" class="col-12 fs-4">¿Cómo deseas pagar?</label>
+                            <select x-model="pago" name="pago" id="pago" class="form-select c m-2 w-50  ">
+                                <option selected value="efectivo">Efectivo</option>
+                                @foreach (Auth::user()->paymentMethods() as $metodo)
+                                    <option value="{{ $metodo->card->last4 }}">Tarjeta - {{ $metodo->card->last4 }}
+                                    </option>
+                                @endforeach
+                            </select>
 
+                        @endif
                         <div class="col-12 pt-1 justify-content-around">
-                            <h4>Coste total </h4>
-                            <input type="submit" value="@if (Auth::user()->id == $coche->user_id) Reservar @else Alquilar @endif "
-                                class="btn btn-outline-success w-25 h-50 mb-2 mt-2">
-                            <input type="text" id="precio"
-                                class="form-input col-6 text-right m-2 border-2 mb-2  focus-outline-success rounded bg-slate-200 text-success fw-bolder fs-4"
-                                value=" {{ $coche->precio }}€" readonly>
+                            @if (Auth::user()->id != $coche->user_id)
+                                <h4>Coste total </h4>
+                            @endif
+                            <input type="submit"
+                                value="@if (Auth::user()->id == $coche->user_id) Bloquear fechas @else Alquilar @endif "
+                                class="btn btn-outline-success  ">
+                            @if (Auth::user()->id != $coche->user_id)
+                                <input type="text" id="precio"
+                                    class="form-input col-6 text-right m-2 border-2 mb-2  focus-outline-success rounded bg-slate-200 text-success fw-bolder fs-4"
+                                    value=" {{ $coche->precio }}€" readonly>
+                            @endif
                         </div>
                     </div>
                 </form>
             </div>
-            <div class="col-12 bg-white rounded h-fit shadow">
-                <h3 class="text-center">Ubicación de recogida del coche</h3>
-                <div id="map" class="shadow pb-2"></div>
+            <div class="col-12 bg-white rounded p-2 h-fit shadow">
+                <h3 class="text-center pt-2">Ubicación de recogida del coche</h3>
+                <hr>
+                <div id="map" class="shadow pb-2 rounded"></div>
             </div>
 
         </div>
@@ -185,7 +193,7 @@
 
         document.addEventListener('DOMContentLoaded', function() {
             localStorage.setItem('UltimoCoche', "{{ $coche->id }}");
-            document.cookie= 'UltimoCoche='+{{$coche->id}} + ';path=/';
+            document.cookie = 'UltimoCoche=' + {{ $coche->id }} + ';path=/';
 
             const fechaInicioPicker = flatpickr('#fechaInicio', {
                 dateFormat: "Y-m-d",
@@ -259,7 +267,32 @@
             });
         });
     </script>
+    <x-modal name="confirm-coche-deletion" :show="$errors->userDeletion->isNotEmpty()" focusable>
+        <form method="post" action="{{ route('admin.coche-destroy', ['id' => $coche->id]) }}" class="p-6">
+            @csrf
+            @method('delete')
 
+            <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
+                ¿Estás seguro de borrar este coche?
+            </h2>
+
+            <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                Las facturas que estén vigentes deben de haber sido canceladas antes. Si solo quieres dejar de alquilarlo más, edita tu coche para que deje de mostrarse a otros usuarios. Esta opción no es reversible.
+            </p>
+
+
+
+            <div class="mt-6 flex justify-end">
+                <x-secondary-button x-on:click="$dispatch('close')">
+                    {{ __('Cancelar') }}
+                </x-secondary-button>
+
+                <x-danger-button class="ml-3">
+                    {{ __('Confirmar') }}
+                </x-danger-button>
+            </div>
+        </form>
+    </x-modal>
 
 
 </x-app-layout>

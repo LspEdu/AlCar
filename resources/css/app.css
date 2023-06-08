@@ -5,10 +5,9 @@
 body {
     font-family: "Roboto", sans-serif;
 }
-/*
- * Always set the map height explicitly to define the size of the div element
- * that contains the map.
- */
+
+
+/* Clases del mapa */
 #map {
     height: 300px;
 }
@@ -100,11 +99,7 @@ body {
     top: 0;
     filter: blur(0.3);
 }
-
-.out {
-    background-image: url("../img/Visiwig-Bricks.svg");
-    opacity: 0.4;
-}
+ /* Fin Clases del Mapa */
 
 .register,
 .login {

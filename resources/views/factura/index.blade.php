@@ -3,7 +3,7 @@
 
         <div
             class="col-12 col-md-5 row row-cols-1 bg-white rounded mt-3 justify-content-center max-h-5/6 overflow-y-auto">
-            <div class="col-12 text-center">
+            <div class="col-12 text-center pt-2">
                 <h2>Facturas</h2>
                 <h4 class="text-muted">Aquí están todas tus facturas</h4>
                 <hr>
@@ -46,7 +46,7 @@
         </div>
         <div
             class="col-12 col-md-5 row row-cols-1 bg-white rounded mt-3 justify-content-center max-h-5/6 overflow-y-auto">
-            <div class="col-12 text-center">
+            <div class="col-12 text-center pt-2">
                 <h2>Facturas de Coches</h2>
                 <h4 class="text-muted">Aquí están todas las facturas de tus coches</h4>
                 <hr>

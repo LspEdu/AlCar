@@ -22,7 +22,7 @@
             </h2>
 
             <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-                {{ __('Una vez que tu cuenta es borrada, todos los recuros y datos serán permanentemente borrados. Antes de borrar tu cuenta, por favor descarga todo lo que puedas necesitar en un futuro.') }}
+                {{ __('Una vez que tu cuenta es borrada, todos los recuros y datos serán permanentemente borrados. Antes de borrar tu cuenta, por favor descarga todo lo que puedas necesitar en un futuro y cancela las reservas activas que puedas') }}
             </p>
 
             <div class="mt-6">

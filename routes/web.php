@@ -56,7 +56,8 @@ Route::middleware('auth')->group(function () {
 Route::middleware('auth')->group(function() {
     Route::get('/factura', [FacturaController::class, 'index'])->name('factura.index');
     Route::get('/factura/{id}', [FacturaController::class , 'show'])->name('factura.show');
-    Route::post('/factura/{codigo}', [FacturaController::class, 'destroy'])->name('factura.cancelar');
+    Route::delete('/factura/{codigo}/destroy', [FacturaController::class, 'destroy'])->name('factura.cancelar');
+    Route::delete('/factura/{codigo}', [FacturaController::class, 'refund'])->name('factura.refund');
 });
 
 Route::middleware('admin')->group(function () {

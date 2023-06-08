@@ -4,10 +4,13 @@
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ __('Inicio') }}
         </h2>
+        @if (session('success'))
+            <p class="bg-success text-light rounded ps-2">{{ session('success') }}</p>
+        @endif
     </x-slot>
 
-    <div class="row pt-2">
-        <div class="col-lg-5">
+    <div class="row pt-2 mt-2 ">
+        <div class="col-lg-5 justify-items-center">
             <div class="card mb-4 shadow">
                 <div class="card-body text-center row">
                     <div class="row mb-2">
@@ -57,14 +60,25 @@
                 <a class="btn btn-primary" href="{{ route('metodos') }}">Métodos de Pago</a>
             </div>
 
-            <div class="hidden w-fit justify-items-center  bg-white rounded text-center " id="last">
+            <div class="hidden col-12 h-50 bg-white card coche-card shadow text-center mb-8" id="last">
+                <h2 class="pt-2">Continúa donde lo dejaste</h2>
+                    <img class="coche card-img-top w-100 mt-1 rounded shadow-sm cursor-pointer hover-zoom " style="" alt="fotoCoche" />
+                    <div class="card-body">
+                      <h3 class="card-title"></h3>
+                      <div class="card-text">
+                        <h5>Precio por día: <span class="text-success" x-text="coche.precio + '€'">€</span></h5>
+                        <p>Matrícula: <small x-text="coche.matricula"></small></p>
+                      </div>
+                      <a class="btn btn-outline-success text-center mb-4">Alquilar</a>
+                    </div>
+
             </div>
         </div>
 
-        <div class="col-lg-7">
+        <div class="col-lg-7 mt-8">
             <div class="row gap-4">
-                <div class="col-12">
-                    <div class="card shadow mb-md-0">
+                <div class="col-12 mt-3 mt-md-0">
+                    <div class="card mt-3 mt-md-0 shadow mb-md-0">
                         <div class="card-body">
                             <div x-data="{
                                 items: {{ Auth::user()->coches }},
@@ -150,19 +164,29 @@
         let local = localStorage.getItem('UltimoCoche'),
             last = document.getElementById('last');
 
-            if(local){
-                last.style.display = 'flex';
-                let enlace = document.createElement('a');
-                enlace.href = "{{ route('coche.index') }}/" + local;
-                enlace.textContent = 'Continúa desde donde lo dejaste';
-                enlace.classList.add("btn");
-                enlace.classList.add("btn-outline-secondary");
-                enlace.classList.add("fs-3");
-                enlace.classList.add("justify-self-center");
-                last.appendChild(enlace);
-            }
+        if (local) {
+            fetch('/coche/' + local + '/json').then(response => response.json())
+                .then(data => {
+                    last.style.display = 'flex';
+                    let img = last.querySelector('img'),
+                        cardBody = last.querySelector('.card-body'),
+                        a = last.querySelector('a');
+                    let cardTitle = cardBody.querySelector('.card-title'),
+                        cardText = cardBody.querySelector('.card-text');
+                    let h5 = cardText.querySelector('h5').querySelector('span'),
+                        p = cardText.querySelector('p').querySelector('small');
+                    a.href = "{{ route('coche.index') }}/" + data.id;
+                    h5.textContent = data.precio + '€';
+                    p.textContent = data.matricula;
+                    img.src = data.foto;
+                    cardTitle.textContent = data.marca + ' ' + data.modelo;
+                })
+                .catch(error => {
 
+                    console.error(error);
+                });
 
+        }
     </script>
 
 </x-app-layout>

@@ -17,6 +17,7 @@ class Factura extends Model
         'codigo', /* Se genera así FechaFin.FechaInicio.this->coche->matricula */
         'lat',
         'lng',
+        'token',
     ];
 
 

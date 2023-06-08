@@ -100,7 +100,7 @@ class CocheController extends Controller
     public function json($id)
     {
 
-        $coche = Coche::find($id);
+        $coche = Coche::findOrFail($id);
         return response()->json($coche);
 
     }

@@ -49,13 +49,30 @@ class FacturaController extends Controller
         if($factura->coche->user_id == $request->user()->id){
             try{
                 $factura->delete();
-                return redirect()->back()->with('Success', 'Días cancelados correctamente');
+                return redirect()->back()->with('success', 'Días cancelados correctamente');
             }catch(\Exception $e){
                 throw $e->getMessage();
             }
         }else{
             return redirect()->back();
         };
+    }
+
+    public function refund($codigo, Request $request)
+    {
+        $factura = Factura::where('codigo', $codigo)->get()[0];
+        if($factura->user->id == $request->user()->id){
+            try{
+                $request->user()->refund($factura->token);
+                $factura->delete();
+                return redirect()->back()->with('success', 'Reembolso completado');
+            }catch (\Exception $e){
+                throw $e;
+            }
+
+        }else {
+            return redirect()->back();
+        }
     }
 
 
@@ -126,19 +143,23 @@ class FacturaController extends Controller
         $diff = $fechaFin->diff($fechaInicio);
         $factura = new Factura();
 
-        if ($request->input('pago') != 'efectivo') {
             if (!$request->user()->paymentMethods()) return redirect()->route('metodos');
             foreach ($request->user()->paymentMethods() as $metodo) {
                 if ($metodo->card->last4 == $request->input('pago')) $method = $metodo;
             }
+            if(!isset($method)){
+                $method = $request->user()->DefaultPaymentMethod();
+                $importe = ($diff->days * $coche->precio * 100)*0.3;
+            }else $importe = $diff->days * $coche->precio * 100;
+            if(is_null($method))return redirect()->route('metodos');
             $stripeCharge = $request->user()->charge(
-                $diff->days * $coche->precio * 100,
+                $importe,
                 $method->id, [
                     'description' => $fechaFin->format('Ymd') . $fechaInicio->format('Ymd') . $coche->matricula,
                 ]
             );
             $factura->metodoPago = 'tarjeta';
-        }
+            $factura->token = $stripeCharge->id;
 
 
 
@@ -153,6 +174,6 @@ class FacturaController extends Controller
         $factura->lng = $coche->lng;
         $factura->save();
 
-        return redirect()->route('dashboard')->with('FacturaCreada', 'Perfecto. Has reservado correctamente tu coche');
+        return redirect()->route('dashboard')->with('success', 'Perfecto. Has reservado correctamente tu coche');
     }
 }

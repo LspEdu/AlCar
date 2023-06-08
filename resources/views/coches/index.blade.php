@@ -23,7 +23,6 @@
                 </div>
             @endif
         @endif
-
     </x-slot>
     <div class="mt-4 mt-md-2 row gap-3 justify-content-evenly ">
         <div class="col-12 col-lg-6 bg-white rounded shadow">
@@ -93,9 +92,11 @@
                             </tbody>
                         </table>
                     </div>
+                    @if (Auth::user()->id == $coche->user_id)
                     <div class="card-footer border-top-0 text-center">
                         <x-danger-button x-data=""  x-on:click.prevent="$dispatch('open-modal', 'confirm-coche-deletion')">Eliminar Coche</x-danger-button>
                     </div>
+                    @endif
                 </div>
             </div>
         </div>
@@ -122,16 +123,20 @@
 
                     </div>
                     <hr>
-                    <div class="row p-2">
+                    <div class="row ms-2 p-2">
                         @if (Auth::user()->id != $coche->user_id)
                             <label for="pago" class="col-12 fs-4">¿Cómo deseas pagar?</label>
-                            <select x-model="pago" name="pago" id="pago" class="form-select c m-2 w-50  ">
+                            <select x-model="pago" name="pago" id="pago" class="form-select  m-2 w-50  ">
                                 <option selected value="efectivo">Efectivo</option>
                                 @foreach (Auth::user()->paymentMethods() as $metodo)
                                     <option value="{{ $metodo->card->last4 }}">Tarjeta - {{ $metodo->card->last4 }}
                                     </option>
                                 @endforeach
                             </select>
+                            @php
+
+                            @endphp
+                            <p x-show="pago == 'efectivo'" class="text-muted">Aunque elijas efectivo, se te cobrará un 30% del importe total como reserva en tu método de pago por defecto.</p>
                         @endif
                         <div class="col-12 pt-1 justify-content-around">
                             @if (Auth::user()->id != $coche->user_id)
@@ -172,6 +177,7 @@
                                     <td>{{$factura->FechaInicio}}</td>
                                     <td>{{$factura->FechaFin}}</td>
                                     <form method="POST" action="{{route('factura.cancelar', ['codigo' => $factura->codigo])}}" >
+                                        @method('delete')
                                         @csrf
                                         <td><x-danger-button>Cancelar</x-danger-button></td>
                                     </form>

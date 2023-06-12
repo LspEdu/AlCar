@@ -60,9 +60,9 @@
                 <a class="btn btn-primary" href="{{ route('metodos') }}">Métodos de Pago</a>
             </div>
 
-            <div class="hidden col-12 h-50 bg-white card coche-card shadow text-center mb-8" id="last">
+            <div class="hidden col-12 h-50 bg-white  coche-card shadow text-center mb-8" id="last">
                 <h2 class="pt-2">Continúa donde lo dejaste</h2>
-                    <img class="coche card-img-top w-100 mt-1 rounded shadow-sm cursor-pointer hover-zoom " style="" alt="fotoCoche" />
+                    <img class="coche card-img-top w-100 mt-1 rounded shadow-sm  hover-zoom" style="" alt="fotoCoche" />
                     <div class="card-body">
                       <h3 class="card-title"></h3>
                       <div class="card-text">
@@ -163,11 +163,13 @@
     <script>
         let local = localStorage.getItem('UltimoCoche'),
             last = document.getElementById('last');
+            console.log(local == null)
 
-        if (local) {
+        if (local != null) {
+            last.style.display = 'flex';
+            last.classList.add('card');
             fetch('/coche/' + local + '/json').then(response => response.json())
                 .then(data => {
-                    last.style.display = 'flex';
                     let img = last.querySelector('img'),
                         cardBody = last.querySelector('.card-body'),
                         a = last.querySelector('a');

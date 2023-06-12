@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Coche;
+use App\Models\Factura;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -65,6 +66,20 @@ class AdminController extends Controller
 
     }
 
+    public function refund($codigo, Request $request)
+    {
+        $factura = Factura::where('codigo', $codigo)->get()[0];
+
+            try{
+                $request->user()->refund($factura->token);
+                $factura->delete();
+                return redirect()->back()->with('success', 'Reembolso completado');
+            }catch (\Exception $e){
+                throw $e;
+            }
+    }
+
+
     public function destroyCoche($id)
     {
         $coche = Coche::find($id);
@@ -79,5 +94,13 @@ class AdminController extends Controller
         $coche->save();
 
         return back();
+    }
+
+    public function facturas()
+    {
+        $facturas = Factura::whereNotNull('user_id')->get();
+        return view('admin.facturas', [
+            'facturas' => $facturas,
+        ]);
     }
 }

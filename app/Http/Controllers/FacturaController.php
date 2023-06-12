@@ -158,7 +158,7 @@ class FacturaController extends Controller
                     'description' => $fechaFin->format('Ymd') . $fechaInicio->format('Ymd') . $coche->matricula,
                 ]
             );
-            $factura->metodoPago = 'tarjeta';
+            $factura->metodoPago = $request->input('pago');
             $factura->token = $stripeCharge->id;
 
 

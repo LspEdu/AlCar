@@ -128,7 +128,7 @@
                                 <ul>
                                     <template x-for="item in getItems()" :key="item.id">
                                         <li class="py-2">
-                                            <a class="link link-secondary" :href="'/coche/' + item.id"
+                                            <a class="link link-secondary" :href="'/admin/coche/' + item.id"
                                                 x-text="item.marca + ' ' + item.modelo + ' - ' + item.matricula"></a>
                                         </li>
                                     </template>

@@ -69,6 +69,8 @@ Route::middleware('admin')->group(function () {
     Route::get('/admin/usuario', [AdminController::class, 'usuarios'])->name('admin.usuarios');
     Route::get('/admin/usuario/{id}', [AdminController::class, 'showUsuario'])->name('admin.usuario');
     Route::delete('/admin/usuario/{id}', [AdminController::class, 'destroyUsuario'])->name('admin.usuario-destroy');
+    Route::get('/admin/facturas', [AdminController::class, 'facturas'])->name('admin.facturas');
+    Route::delete('/admin/factura/{codigo}', [AdminController::class, 'refund'])->name('admin.refund');
 });
 
 

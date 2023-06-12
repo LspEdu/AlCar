@@ -137,7 +137,7 @@
         </div>
         <div class="row row-cols-1 row-cols-md-3 mt-3 row-cols-lg-4 gap-4 justify-content-center">
             <template x-for="coche in paginatedCoches" :key="coche.id">
-                <div class="col-11 card col-sm-5 col-lg-3 shadow">
+                <div class="col-11 card coche-card col-sm-5 col-lg-3 shadow">
                     <img :src="'{{ asset('') }}' + coche.foto" class="card-img-top w-100 mt-1 rounded"
                         style="height: 11em" alt="fotoCoche" />
                     <div class="card-body">
@@ -150,6 +150,11 @@
                                 <small x-show="coche.activo == false" class="text-danger"
                                     x-text="'Desactivado'"></small>
                             </p>
+                            <p>Validado <small x-show="coche.validado == true" class="text-success"
+                                x-text="'Validado'"></small>
+                            <small x-show="coche.validado == false" class=" fw-bolder bg-warning rounded p-2"
+                                x-text="'Pendiente'"></small>
+                        </p>
                         </div>
                         <a :href="'coche/' + coche.id" class="btn btn-outline-warning text-center">Ver</a>
 

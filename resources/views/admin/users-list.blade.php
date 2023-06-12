@@ -84,8 +84,8 @@
                         <div class="card-text">
                             <h6>Correo <small x-text="usuario.email">€</small></h6>
                             <p>Teléfono: <small x-text="usuario.tlf"></small></p>
-                            <p>Estado <small x-show="usuario.activo == true" class="text-success" x-text="usuario.activo"></small>
-                                      <small x-show="usuario.activo == false" class="text-danger" x-text="usuario.activo"></small>
+                            <p>Estado <small x-show="usuario.activo == true" class="text-success" x-text="'Activo'"></small>
+                                      <small x-show="usuario.activo == false" class="text-danger" x-text="'Desactivado'"></small>
                                     </p>
                         </div>
                         <a :href="'usuario/' + usuario.id" class="btn btn-outline-warning text-center">Ver</a>

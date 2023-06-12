@@ -4,11 +4,9 @@
         <h2 class="font-semibold text-xxl text-gray-800 dark:text-gray-200 leading-tight ">
             {{ $coche->marca }} {{ $coche->modelo }} || Estado de validación
             <a href="{{ route('admin.validar', ['id' => $coche->id]) }}"
-                @if (!$coche->validado) class="bg-success btn"><span class="material-symbols-outlined">done</span>
+                @if ($coche->validado) class="bg-success btn text-light">Activado
                 @else
-                class="bg-danger btn" ><span class="material-symbols-outlined">
-                    close
-                    </span> @endif
+                class="bg-danger btn text-light" >Desactivado @endif
                 </a>
         </h2>
     </x-slot>
@@ -36,7 +34,7 @@
                                 </tr>
                                 <tr class="">
                                     <td scope="row" class="fw-bold">Cambio</td>
-                                    <td class="text-end">{{ $coche->cambio }}</td>
+                                    <td class="text-end">{{ ucfirst($coche->cambio) }}</td>
                                 </tr>
                                 <tr class="">
                                     <td scope="row" class="fw-bold">Año de Matriculación</td>
@@ -48,7 +46,7 @@
                                 </tr>
                                 <tr class="">
                                     <td scope="row" class="fw-bold">Combustible</td>
-                                    <td class="text-end">{{ $coche->combustible ?? 'Desconocido' }}</td>
+                                    <td class="text-end">{{ ucfirst($coche->combustible) ?? 'Desconocido' }}</td>
                                 </tr>
                                 <tr class="">
                                     <td scope="row" class="fw-bold">Cilindrada</td>
@@ -73,6 +71,9 @@
                             </tbody>
                         </table>
                     </div>
+                    <div class="card-footer border-top-0 text-center">
+                        <x-danger-button x-data=""  x-on:click.prevent="$dispatch('open-modal', 'confirm-coche-deletion')">Eliminar Coche</x-danger-button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -82,7 +83,7 @@
                         href="{{ route('admin.usuario', ['id' => $coche->user->id]) }}"
                         class="link link-secondary">Dueño del Coche</a></h3>
                 <div class="card-body row">
-                    <img src="{{ $coche->user->avatar ?? '/storage/webo.jpg' }}" alt="No tiene foto"
+                    <img src="/{{ $coche->user->avatar ?? 'storage/webo.jpg' }}" alt="No tiene foto"
                         class="img-fluid h-25 col-3">
                     <div class="col-9">
                         <p>Nombre : {{ $coche->user->name }}</p>
@@ -93,8 +94,10 @@
                     </div>
                 </div>
             </div>
-            <div class="col-12 mt-2 bg-white rounded text-center" >
-                <x-danger-button class="m-2" x-data=""  x-on:click.prevent="$dispatch('open-modal', 'confirm-coche-deletion')" >Borrar Coche</x-danger-button>
+            <div class="col-12 bg-white rounded mt-2 p-2 h-fit shadow">
+                <h3 class="text-center pt-2">Ubicación de recogida del coche</h3>
+                <hr>
+                <div id="map" class="shadow pb-2 rounded"></div>
             </div>
         </div>
     </div>
@@ -179,6 +182,28 @@
             });
         });
     </script>
+        <script>
+            function initMap() {
+                const myLatLng = {
+                    lat: {{ $coche->lat }},
+                    lng: {{ $coche->lng }}
+                };
+                const map = new google.maps.Map(document.getElementById("map"), {
+                    zoom: 15,
+                    center: myLatLng,
+                });
+
+                new google.maps.Marker({
+                    position: myLatLng,
+                    map,
+                    title: "Aquí se encuentra el coche",
+                });
+            }
+
+            window.initMap = initMap;
+        </script>
+        <script type="text/javascript"
+            src="https://maps.google.com/maps/api/js?key={{ env('GOOGLE_MAP_KEY') }}&callback=initMap&v=weekly"></script>
 
     <x-modal name="confirm-coche-deletion" :show="$errors->userDeletion->isNotEmpty()" focusable>
         <form method="post" action="{{ route('admin.coche-destroy', ['id' => $coche->id]) }}" class="p-6">

@@ -35,6 +35,11 @@
             <x-input-error class="mt-2" :messages="$errors->get('ape2')" />
         </div>
 
+        <div>
+            <x-input-label for="dni" :value="__('DNI')" />
+            <x-text-input id="dni" disabled name="dni" type="text" class="mt-1 block w-full text-muted" :value="old('dni', $user->dni)"  autofocus autocomplete="dni" />
+            <x-input-error class="mt-2" :messages="$errors->get('dni')" />
+        </div>
 
         <div>
             <x-input-label for="fechNac" :value="__('Fecha Nacimiento')" />

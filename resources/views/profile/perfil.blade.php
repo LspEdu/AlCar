@@ -22,7 +22,11 @@
                             <p class="mb-0">Email</p>
                         </div>
                         <div class="col-sm-9">
+                            @if ($facturado)
                             <a href="mailto:{{ $user->email }}" class="text-muted mb-0">{{ $user->email }}</a>
+                            @else
+                            <p class="text-muted">Oculto</p>
+                            @endif
                         </div>
                     </div>
                     <hr>
@@ -31,7 +35,12 @@
                             <p class="mb-0">Teléfono</p>
                         </div>
                         <div class="col-sm-9">
+                            @if ($facturado)
                             <p class="text-muted mb-0">{{ $user->tlf }} </p>
+                            @else
+                            <p class="text-muted">Oculto</p>
+                            @endif
+
                         </div>
                     </div>
                     <hr>
@@ -40,7 +49,12 @@
                             <p class="mb-0">Dirección</p>
                         </div>
                         <div class="col-sm-9">
+                            @if ($facturado)
                             <p class="text-muted mb-0">{{ $user->direccion ?? 'Desconocida' }}</p>
+                            @else
+                            <p class="text-muted">Oculto</p>
+                            @endif
+
                         </div>
                     </div>
                 </div>

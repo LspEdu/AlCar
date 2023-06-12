@@ -25,7 +25,8 @@ class DatabaseSeeder extends Seeder
              'email' => 'millonarioLoco@paypal.com',
              'rol' => 'user',
              'password' => Hash::make('testtest'),
-             'avatar' => 'storage/coches/Factory/elon.webp'
+             'dni' => '12321323T',
+             'avatar' => 'storage/coches/Factory/elon.webp',
          ]);
 
          $user->coches()->create([
@@ -123,6 +124,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'huesped',
             'ape1' => 'huesped',
             'tlf' => '123123123',
+            'dni' => '89898989R',
             'fechNac' => '1999-07-21',
             'email' => 'huesped@example.com',
             'rol' => 'user',
@@ -133,6 +135,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'admin',
             'ape1' => 'admin',
             'tlf' => '123123123',
+            'dni' => '45453634E',
             'fechNac' => '1999-07-21',
             'email' => 'admin@example.com',
             'rol' => 'admin',

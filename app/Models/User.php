@@ -32,6 +32,7 @@ class User extends Authenticatable
         'avatar',
         'activo',
         'stripeToken',
+        'dni',
     ];
 
     private string $rol;

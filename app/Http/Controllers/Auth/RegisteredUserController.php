@@ -33,9 +33,10 @@ class RegisteredUserController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'ape1' => ['required', 'string', 'max:255' ],
-            'ape2' => ['nullable','string'],
+            'ape2' => ['nullable','string', 'max:255'],
             'fechNac' => ['required', 'date'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
+            'dni' => ['required', 'string', 'min:9', 'max:9', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'tlf' => ['required', 'integer'],
             'direccion' => ['nullable', 'string']
@@ -47,6 +48,7 @@ class RegisteredUserController extends Controller
             'ape2' => $request->ape2,
             'fechNac' => $request->fechNac,
             'email' => $request->email,
+            'dni' => $request->dni,
             'password' => Hash::make($request->password),
             'tlf' => $request->tlf,
             'direccion' => $request->direccion,

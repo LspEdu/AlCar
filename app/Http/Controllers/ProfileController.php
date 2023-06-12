@@ -24,13 +24,23 @@ class ProfileController extends Controller
 
 
 
-    public function show($id)
+    public function show($id, Request $request)
     {
         $user = User::find($id);
-        if($user->activo)
-        return view('profile.perfil', [
-            'user' => $user,
-        ]);
+        $facturado = false;
+        if ($user->activo) {
+            if ($request->user()->facturas) {
+                foreach ($request->user()->facturas as $factura) {
+                    if ($factura->user->id == $user->id || $factura->coche->user->id == $user->id) $facturado = true;
+                }
+            }
+            return view('profile.perfil', [
+                'user' => $user,
+                'facturado' => $facturado,
+            ]);
+        } else {
+            return redirect()->back();
+        }
     }
 
     /**
@@ -84,7 +94,6 @@ class ProfileController extends Controller
         foreach ($user->coches as $coche) {
             $coche->activo = false;
             $coche->save();
-
         }
         $user->save();
 

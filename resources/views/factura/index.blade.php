@@ -21,23 +21,23 @@
         @endif
             <div class="col-11 max-h-[40rem] text-sm md:text-base mb-2 overflow-y-auto">
                 @forelse ($facturas as $factura)
-                    <div class="row">
-                        <div class="col-4 ">
+                    <div class="row gap-1">
+                        <div class="col-3 ">
                             {{ $factura->coche->marca }}
                             {{ $factura->coche->modelo }}
                         </div>
-                        <div class="col-4">
+                        <div class="col-3">
                             <a class="text-muted" href="{{ route('coche.show', ['id' => $factura->coche->id]) }}">
                                 {{ $factura->coche->matricula }}
                             </a>
                         </div>
-                        <div class="col-4">
+                        <div class="col-3">
                             <a class="text-muted"
                                 href="{{ route('profile.show', ['id' => $factura->coche->user->id]) }}">
                                 {{ $factura->coche->user->email }}
                             </a>
                         </div>
-                        <div class="col-4 mt-2 text-center  fs-5 align-middle bg-lime-100 rounded">
+                        <div class="col-3 mt-2 text-center  fs-5 align-middle bg-lime-100 rounded">
                             {{ $factura->importe }} €
                         </div>
                         <div class="col-4 text-center mt-2">

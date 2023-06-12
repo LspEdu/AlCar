@@ -8,12 +8,11 @@
         body {
             margin: 0;
             padding: 0;
-
         }
 
         .container {
-            margin: 1em;
-            height: 95%;
+            margin: 0.5em;
+            height: 93%;
         }
 
         footer {
@@ -29,9 +28,7 @@
         }
 
         main table {
-            margin: 0.5em 0 0.5em 0;
-
-
+            margin: 0.3em 0 0.3em 0;
         }
 
         main table td:not(.importe) {
@@ -71,7 +68,6 @@
 
         .importe {
             width: 100%;
-            padding-top: 1em;
         }
 
         .importe td {
@@ -87,7 +83,6 @@
 </head>
 
 <body>
-
     <div class="container">
         <header>
             <table class="bot-line">
@@ -110,7 +105,7 @@
             </table>
         </header>
         <main>
-            <table class="bot-line collapse">
+            <table class="bot-line collapse" style="padding-top: 0">
                 <tr>
                     <td align="center">
                         <h2>Datos del cliente</h2>
@@ -124,6 +119,10 @@
                             <tr>
                                 <td>Apellidos</td>
                                 <td>{{ $factura->user->ape1 }} {{ $factura->user->ape2 }}</td>
+                            </tr>
+                            <tr>
+                                <td>DNI</td>
+                                <td>{{$factura->user->dni}}</td>
                             </tr>
                             <tr>
                                 <td>Teléfono</td>
@@ -141,7 +140,6 @@
                     </td>
                 </tr>
             </table>
-
             <table class="bot-line ">
                 <tr>
                     <td width="60%" rowspan="2">{{-- datos coche --}}
@@ -217,6 +215,10 @@
                             <tr>
                                 <td>Apellidos</td>
                                 <td>{{ $factura->coche->user->ape1 }} {{ $factura->coche->user->ape2 }}</td>
+                            </tr>
+                            <tr>
+                                <td>DNI</td>
+                                <td>{{$factura->coche->user->dni}}</td>
                             </tr>
                             <tr>
                                 <td>Teléfono</td>

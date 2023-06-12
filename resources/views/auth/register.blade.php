@@ -39,7 +39,6 @@
             <x-input-error :messages="$errors->get('dni')" class="mt-2 error" id="dni-error" />
         </div>
 
-
         <!-- Teléfono -->
         <div class="mt-4">
             <x-input-label for="tlf" :value="__('Teléfono')" />
@@ -102,26 +101,24 @@
 
     <script defer>
         var form = document.getElementById('registrar');
-
         var inputs = document.querySelectorAll('input'),
                 errores = false,
                 errorInputs = document.querySelectorAll('.error');
-
-         var inputMap = new Map();
-        inputMap.set('name', /^[A-Z][a-z]{2,255}$/);
-        inputMap.set('ape1', /^[A-Z][a-z]{2,255}$/);
-        inputMap.set('ape2',/^[A-Z][a-z]{2,255}$/);
-        inputMap.set('dni', /^[0-9]{8}[A-Z]$/ )
+        var inputMap = new Map();
+        inputMap.set('name', /^[A-ZÁÉÍÓÚ][a-záéíóú]{2,255}$/);
+        inputMap.set('ape1', /^[A-ZÁÉÍÓÚ][a-záéíóú]{2,255}$/);
+        inputMap.set('ape2',/^[A-ZÁÉÍÓÚ][a-záéíóú]{2,255}$/);
+        inputMap.set('dni', /^[0-9]{8}[A-Z]$/);
+        inputMap.set('tlf', /^[0-9]{9}$/);
 
         var errorMap = new Map();
         errorMap.set('name', 'El nombre debe tener la Primera letra mayúscula y tener al menos 3 caracteres');
         errorMap.set('ape1', 'El primer apellido debe tener la Primera letra mayúscula y tener al menos 3 caracteres');
-        errorMap.set('ape2','El segundo apellido debe tener la Primera letra mayúscula y tener al menos 3 caracteres o estar vacío');
-        errorMap.set('dni', 'El campo DNI debe estar formado por 8 números y una letra en MAYÚSCULAS. Ej: 12345678X');
+        errorMap.set('ape2', 'El segundo apellido debe tener la Primera letra mayúscula y tener al menos 3 caracteres o estar vacío');
+        errorMap.set('dni',  'El campo DNI debe estar formado por 8 números y una letra en MAYÚSCULAS. Ej: 12345678X');
+        errorMap.set('tlf',  'El campo tlf debe estar formado por 9 números');
 
-        errorInputs.forEach((error) => {
-            console.log(error.id)
-        });
+
 
         inputs.forEach((input) => {
             input.addEventListener('change', () => {
@@ -134,21 +131,13 @@
                     document.getElementById(input.id+'-error').textContent = '';
                     errores = false;
                 }
-
             })
         });
 
         form.addEventListener('submit', (e) => {
             e.preventDefault();
-
-
-
             checkMayorEdad(inputs[6].value, errorInputs[5], errores);
-
-
-
             if (!errores) form.submit();
-
         });
 
         function checkMayorEdad(edad, campo, errores) {

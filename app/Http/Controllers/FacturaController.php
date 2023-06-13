@@ -61,7 +61,7 @@ class FacturaController extends Controller
     public function refund($codigo, Request $request)
     {
         $factura = Factura::where('codigo', $codigo)->get()[0];
-        if($factura->user->id == $request->user()->id){
+        if($factura->user->id == $request->user()->id || $factura->coche->user->id == $request->user()->id ){
             try{
                 $request->user()->refund($factura->token);
                 $factura->delete();
@@ -158,7 +158,7 @@ class FacturaController extends Controller
                     'description' => $fechaFin->format('Ymd') . $fechaInicio->format('Ymd') . $coche->matricula,
                 ]
             );
-            $factura->metodoPago = $request->input('pago');
+            if($request->input('pago') != 'efectivo')$factura->metodoPago = 'tarjeta';
             $factura->token = $stripeCharge->id;
 
 

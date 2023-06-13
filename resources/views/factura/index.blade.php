@@ -1,6 +1,15 @@
 <x-app-layout>
     <div class="row justify-content-around">
-
+        @if (session('success'))
+        <div class="col-12 mt-3 p-2 bg-success rounded text-center">
+            <h3 class="text-light">{{session('success')}}</h3>
+        </div>
+    @endif
+    @if (session('error'))
+    <div class="col-12 mt-3 p-2 bg-red">
+        <p class="text-light">{{session('error')}}</p>
+    </div>
+@endif
         <div
             class="col-12 col-lg-5 row row-cols-1 bg-white rounded mt-3 justify-content-center max-h-5/6 overflow-y-auto">
             <div class="col-12 text-center pt-2">
@@ -9,16 +18,7 @@
                 <h6 class="text-muted">Si quedan más de 5 días para el alquiler, puedes reembolsar el dinero que has pagado a la tarjeta que usaste.</h6>
                 <hr>
             </div>
-            @if (session('success'))
-                <div class="col-12 bg-success rounded text-center">
-                    <h3 class="text-light">{{session('success')}}</h3>
-                </div>
-            @endif
-            @if (session('error'))
-            <div class="col-12 bg-red">
-                <p class="text-light">{{session('error')}}</p>
-            </div>
-        @endif
+
             <div class="col-11 max-h-[40rem] text-sm md:text-base mb-2 overflow-y-auto">
                 @forelse ($facturas as $factura)
                     <div class="row gap-1 flex flex-wrap">
@@ -103,6 +103,17 @@
                                     href="{{ route('factura.show', ['id' => $factura->id]) }}"
                                     target="_blank">Descargar</a>
                             </div>
+                            @if ($factura->FechaInicio >= now()->addDays(5))
+                            <div class="col-4 text-center mt-2">
+                                <form method="POST" action="{{route('factura.refund', ['codigo' => $factura->codigo])}}">
+                                    @method('delete')
+                                @csrf
+                                <button class="items-center px-4 py-2 bg-green-800 dark:bg-green-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-green-800 uppercase tracking-widest hover:bg-green-700 dark:hover:bg-white focus:bg-green-700 dark:focus:bg-white active:bg-green-900 dark:active:bg-green-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-green-800 transition ease-in-out duration-150'">
+                                    Reembolsar
+                                </button>
+                                </form>
+                            </div>
+                        @endif
                             @if (!$loop->last)
                                 <hr class="mt-2 mb-2">
                             @endif

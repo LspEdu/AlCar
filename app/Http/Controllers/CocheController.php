@@ -157,6 +157,9 @@ class CocheController extends Controller
         $request->file('foto')
         ? $coche->setFoto($request->file('foto')->store('public/coches/'.$coche->matricula))
         : $coche->foto = $img;
+        $request->activo ? $coche->activo = true : $coche->activo = false;
+        $request->input('lat') ? $coche->lat = $request->input('lat') : $coche->lat = $coche->lat;
+        $request->input('lng') ? $coche->lng = $request->input('lng') : $coche->lng = $coche->lng;
         $coche->save();
 
         return redirect()->route('coche.show', [

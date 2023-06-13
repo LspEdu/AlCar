@@ -4,7 +4,7 @@
             Editar Coche
         </h2>
     </x-slot>
-    <form method="POST" action="{{ route('coche.update', ['id' => $coche->id]) }}" enctype="multipart/form-data">
+    <form method="POST" id="edit" action="{{ route('coche.update', ['id' => $coche->id]) }}" enctype="multipart/form-data">
         @csrf
 
         @if ($errors->any())
@@ -140,12 +140,20 @@
                     <x-input-error class="mt-2" :messages="$errors->get('km')" />
                 </div>
             </div>
-            <div class="col-12 col-md-7 text-center mt-2 mb-2">
+            <div class="col-12 col-md-3 text-center mt-2 mb-2">
                 <label class="form-label fs-5 " for="foto">Nueva Foto del Coche<span
                         class="text-danger">*</span></label><br>
                 <input class="text-center w-full border rounded shadow-sm" accept="image/*" type="file"
                     name="foto" id="foto">
                 <x-input-error class="mt-2" :messages="$errors->get('foto')"></x-input-error>
+            </div>
+            <div class="col-12 col-md-3">
+                <div class="mb-3">
+                    <label for="activo" class="form-label">Mostrar el coche en la web</label>
+                    <input type="checkbox" min="1"  class=" w-10 shadow-sm " name="activo"
+                        id="activo" checked />
+                    <x-input-error class="mt-2" :messages="$errors->get('activo')" />
+                </div>
             </div>
             <div class="col-12 gap-1 justify-content-center flex-row-reverse row">
                 <hr>
@@ -162,7 +170,7 @@
                 <label for="site" class="form-label ms-2">Introduce la dirección del lugar de recogida y mira el
                     mapa para
                     saber si es correcto</label>
-                <input id="pac-input" class="controls" type="text" placeholder="Search Box" />
+                <input id="pac-input" class="controls" name="search" type="text" placeholder="Search Box" />
                 <div id="map"></div>
                 <x-primary-button class="col-12 col-md-3  m-2 mb-3">
                     {{ __('Editar') }}
@@ -172,7 +180,7 @@
 
 
 
-    <script>
+    <script defer>
         let lat = 36.78837,
             lng = -6.34085;
 

@@ -145,7 +145,7 @@
                 <div class="mb-3">
                     <label for="activo" class="form-label">¿Quieres que el coche esté activo desde el
                         principio?</label>
-                    <input type="checkbox" min="1" required class=" w-10 shadow-sm " name="activo"
+                    <input type="checkbox" min="1" class=" w-10 shadow-sm " name="activo"
                         id="activo" checked />
                     <x-input-error class="mt-2" :messages="$errors->get('activo')" />
                 </div>

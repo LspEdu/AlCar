@@ -1,4 +1,4 @@
-<p align="center"><img src="/resources/img/logotipo.svg" width="400" alt="AlCar Logo"></p>
+
 
 
 

@@ -1,5 +1,16 @@
 <x-app-layout>
     @csrf
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings:
+                'FILL'1,
+                'wght'900,
+                'GRAD'200,
+                'opsz'48
+        }
+    </style>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ __('Inicio') }}
@@ -50,27 +61,40 @@
                 </div>
             </div>
             <div class="col-12 bg-white rounded text-center p-2 mb-4">
-                @if (!Auth::user()->primerMetodoPago())
-                    <h3 class="text-danger">Aún no has añadido ningún método de pago. Para alquilar es necesario que
-                        añadas uno o tendrás que pagar en efectivo</h3>
-                @else
-                    <h3>Editar métodos de pago</h3>
-                @endif
+                <h3>
+                    @if (!Auth::user()->primerMetodoPago())
+                        <span class="material-symbols-outlined text-danger align-middle">
+                            warning
+                        </span>
+                        Añadir
+                        @else
+                        Editar
+                        @endif  métodos de pago @if (!Auth::user()->primerMetodoPago())
+                            <span class="material-symbols-outlined text-danger align-middle">
+                                warning
+                            </span>
+                        @endif
+                </h3>
                 <hr>
-                <a class="btn btn-primary" href="{{ route('metodos') }}">Métodos de Pago</a>
+                <a class="btn @if (!Auth::user()->primerMetodoPago())
+                    btn-danger
+                    @else
+                    btn-primary
+                    @endif  " href="{{ route('metodos') }}">Métodos de Pago</a>
             </div>
 
             <div class="hidden col-12 h-50 bg-white  coche-card shadow text-center mb-8" id="last">
                 <h2 class="pt-2">Continúa donde lo dejaste</h2>
-                    <img class="coche card-img-top w-100 mt-1 rounded shadow-sm  hover-zoom" style="" alt="fotoCoche" />
-                    <div class="card-body">
-                      <h3 class="card-title"></h3>
-                      <div class="card-text">
+                <img class="coche card-img-top w-100 mt-1 rounded shadow-sm  hover-zoom" style=""
+                    alt="fotoCoche" />
+                <div class="card-body bg-white rounded">
+                    <h3 class="card-title"></h3>
+                    <div class="card-text">
                         <h5>Precio por día: <span class="text-success" x-text="coche.precio + '€'">€</span></h5>
                         <p>Matrícula: <small x-text="coche.matricula"></small></p>
-                      </div>
-                      <a class="btn btn-outline-success text-center mb-4">Alquilar</a>
                     </div>
+                    <a class="btn btn-outline-success text-center  mb-4">Alquilar</a>
+                </div>
 
             </div>
         </div>
@@ -163,7 +187,7 @@
     <script>
         let local = localStorage.getItem('UltimoCoche'),
             last = document.getElementById('last');
-            console.log(local == null)
+        console.log(local == null)
 
         if (local != null) {
             last.style.display = 'flex';

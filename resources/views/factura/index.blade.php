@@ -2,7 +2,7 @@
     <div class="row justify-content-around">
 
         <div
-            class="col-12 col-md-5 row row-cols-1 bg-white rounded mt-3 justify-content-center max-h-5/6 overflow-y-auto">
+            class="col-12 col-lg-5 row row-cols-1 bg-white rounded mt-3 justify-content-center max-h-5/6 overflow-y-auto">
             <div class="col-12 text-center pt-2">
                 <h2>Facturas</h2>
                 <h4 class="text-muted">Aquí están todas tus facturas</h4>
@@ -21,7 +21,7 @@
         @endif
             <div class="col-11 max-h-[40rem] text-sm md:text-base mb-2 overflow-y-auto">
                 @forelse ($facturas as $factura)
-                    <div class="row gap-1">
+                    <div class="row gap-1 flex flex-wrap">
                         <div class="col-3 ">
                             {{ $factura->coche->marca }}
                             {{ $factura->coche->modelo }}
@@ -49,7 +49,7 @@
                                 <form method="POST" action="{{route('factura.refund', ['codigo' => $factura->codigo])}}">
                                     @method('delete')
                                 @csrf
-                                <button class="inline-flex items-center px-4 py-2 bg-green-800 dark:bg-green-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-green-800 uppercase tracking-widest hover:bg-green-700 dark:hover:bg-white focus:bg-green-700 dark:focus:bg-white active:bg-green-900 dark:active:bg-green-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-green-800 transition ease-in-out duration-150'">
+                                <button class="items-center px-4 py-2 bg-green-800 dark:bg-green-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-green-800 uppercase tracking-widest hover:bg-green-700 dark:hover:bg-white focus:bg-green-700 dark:focus:bg-white active:bg-green-900 dark:active:bg-green-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-green-800 transition ease-in-out duration-150'">
                                     Reembolsar
                                 </button>
                                 </form>
@@ -67,7 +67,7 @@
 
         </div>
         <div
-            class="col-12 col-md-5 row row-cols-1 bg-white rounded mt-3 justify-content-center max-h-5/6 overflow-y-auto">
+            class="col-12 col-lg-5 row row-cols-1 bg-white rounded mt-3 justify-content-center max-h-5/6 overflow-y-auto">
             <div class="col-12 text-center pt-2">
                 <h2>Facturas de Coches</h2>
                 <h4 class="text-muted">Aquí están todas las facturas de tus coches</h4>

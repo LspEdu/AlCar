@@ -89,7 +89,7 @@ class CocheController extends Controller
     {
 
 
-        $coche = Coche::find($id);
+        $coche = Coche::findOrFail($id);
 
         return view('coches.index', [
             'coche' => $coche,
@@ -166,7 +166,7 @@ class CocheController extends Controller
 
     public function destroy($id)
     {
-        $coche = Coche::find($id);
+        $coche = Coche::findOrFail($id);
         $coche->activo = false;
         return redirect()->route('dashboard');
     }

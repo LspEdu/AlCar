@@ -66,7 +66,7 @@
                         @endif
                     </div>
                 @empty
-                    <h3 class="text-center">No tienes niguna factura. ¡Empieza a alquilar ya!</h3>
+                    <h3 class="text-center">No hay facturas</h3>
                 @endforelse
 
             </div>
